@@ -1,0 +1,162 @@
+-- *********************************************************
+-- SECCIÓN 1: ESTRUCTURA DE TABLAS (Generada por EF Core)
+-- *********************************************************
+USE RetoCruzRojaDb;
+GO
+
+-- 1. Tablas de Catálogo y Ambulancia
+-- (Asume que EF Core maneja las claves primarias (Id) y foráneas)
+-- Si la tabla ya existe, estas sentencias fallarán (normal si usaste EF Core).
+
+CREATE TABLE Ambulancias (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo NVARCHAR(MAX)
+);
+
+CREATE TABLE ItemsInventario (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(MAX),
+    Categoria NVARCHAR(MAX)
+);
+
+CREATE TABLE InventariosBase (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    AmbulanciaId INT NOT NULL,
+    ItemId INT NOT NULL,
+    CantidadMinima INT NOT NULL,
+    CONSTRAINT FK_InventariosBase_Ambulancias FOREIGN KEY (AmbulanciaId) REFERENCES Ambulancias (Id) ON DELETE CASCADE,
+    CONSTRAINT FK_InventariosBase_ItemsInventario FOREIGN KEY (ItemId) REFERENCES ItemsInventario (Id) ON DELETE CASCADE,
+    CONSTRAINT IX_InventariosBase_AmbulanciaId_ItemId UNIQUE (AmbulanciaId, ItemId)
+);
+
+-- 2. Tablas del Checklist (Generadas en la segunda migración)
+
+CREATE TABLE ChecklistsServicio (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    AmbulanciaId INT NOT NULL,
+    AmbulanciaCodigo NVARCHAR(MAX),
+    FechaHora DATETIME2 NOT NULL,
+    UsuarioNombre NVARCHAR(MAX)
+);
+
+CREATE TABLE ItemsVerificados (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ChecklistId INT NOT NULL,
+    ItemId INT NOT NULL,
+    ItemNombre NVARCHAR(MAX),
+    CantidadMinima INT NOT NULL,
+    CantidadEncontrada INT NOT NULL,
+    NecesitaReabastecimiento BIT NOT NULL,
+    CONSTRAINT FK_ItemsVerificados_ChecklistsServicio FOREIGN KEY (ChecklistId) REFERENCES ChecklistsServicio (Id) ON DELETE CASCADE
+);
+GO
+
+
+
+
+
+-- *********************************************************
+-- SECCIÓN 2: CARGA DE DATOS INICIALES (SEED DATA)
+-- *********************************************************
+
+USE RetoCruzRojaDb;
+GO
+
+-- 1. Insertar Ambulancia de Prueba
+-- Asumimos que esta será la Ambulancia ID = 1 para las pruebas del frontend.
+SET IDENTITY_INSERT Ambulancias ON;
+INSERT INTO Ambulancias (Id, Codigo) VALUES (1, 'SVA 705');
+SET IDENTITY_INSERT Ambulancias OFF;
+GO
+
+-- 2. Insertar Catálogo de Ítems (ItemsInventario)
+-- NOTA: Los IDs de los ítems son generados automáticamente y se usan en el Inventario Base.
+INSERT INTO ItemsInventario (Nombre, Categoria) VALUES
+-- DIAGNÓSTICO
+('Fonendoscopio adulto', 'DIAGNÓSTICO'),
+('Tensiómetro digital de radar', 'DIAGNÓSTICO'),
+('Termómetro digital de radar', 'DIAGNÓSTICO'),
+('Linterna Pupilar', 'DIAGNÓSTICO'),
+
+-- VÍA AÉREA (BOLSILO LATERAL IZQUIERDA)
+('Cánula oro-faríngea (Guedel) 40mm', 'VÍA AÉREA'),
+('Cánula oro-faríngea (Guedel) 60mm', 'VÍA AÉREA'),
+('Cánula oro-faríngea (Guedel) 90mm', 'VÍA AÉREA'),
+('Mascarilla reservorio pediátrica', 'VÍA AÉREA'),
+
+-- MATERIAL DE CURAS
+('Gasas estériles (10 unid.)', 'MATERIAL DE CURAS'),
+('Apósito estéril 20 x 30 cm', 'MATERIAL DE CURAS'),
+('Venda crepé 7 cm', 'MATERIAL DE CURAS'),
+('Manta Termica no reutilizable', 'MATERIAL DE CURAS'),
+
+-- CANALIZACIÓN VENOSA
+('Catéter intravenoso 18 G', 'CANALIZACIÓN VENOSA'),
+('Catéter intravenoso 22 G', 'CANALIZACIÓN VENOSA'),
+('Equipo de suero', 'CANALIZACIÓN VENOSA'),
+('Jeringa 10 ml (5 cuerpos)', 'CANALIZACIÓN VENOSA'),
+
+-- FÁRMACOS
+('Adrenalina 1mg/ml amp', 'FARMACOLOGÍA'),
+('Amiodarona 150mg/3ml amp', 'FARMACOLOGÍA'),
+('Suero Fisiológico 500ml', 'FARMACOLOGÍA'),
+('Diazepam 5mg/ml amp', 'FARMACOLOGÍA'),
+('Metamizol 500 mg amp', 'FARMACOLOGÍA');
+GO
+
+-- 3. Definir el Inventario Base para la Ambulancia 'SVA 705' (ID = 1)
+------------------------------------------------------------
+DECLARE @AmbulanciaId INT = 1;
+
+-- Tabla Temporal para asociar nombres de ítems con sus IDs y cantidades mínimas.
+CREATE TABLE #TempInventarioBase (NombreItem NVARCHAR(255), Cantidad INT);
+
+-- Cargar datos estimados basados en las imágenes:
+INSERT INTO #TempInventarioBase (NombreItem, Cantidad) VALUES 
+-- DIAGNÓSTICO
+('Fonendoscopio adulto', 1),
+('Tensiómetro digital de radar', 1),
+('Termómetro digital de radar', 1),
+('Linterna Pupilar', 1),
+
+-- VÍA AÉREA
+('Cánula oro-faríngea (Guedel) 40mm', 1),
+('Cánula oro-faríngea (Guedel) 60mm', 2),
+('Cánula oro-faríngea (Guedel) 90mm', 2),
+('Mascarilla reservorio pediátrica', 1),
+
+-- MATERIAL DE CURAS
+('Gasas estériles (10 unid.)', 5),
+('Apósito estéril 20 x 30 cm', 3),
+('Venda crepé 7 cm', 2),
+('Manta Termica no reutilizable', 2),
+
+-- CANALIZACIÓN VENOSA
+('Catéter intravenoso 18 G', 4),
+('Catéter intravenoso 22 G', 4),
+('Equipo de suero', 3),
+('Jeringa 10 ml (5 cuerpos)', 10),
+
+-- FÁRMACOS
+('Adrenalina 1mg/ml amp', 4),
+('Amiodarona 150mg/3ml amp', 2),
+('Suero Fisiológico 500ml', 3),
+('Diazepam 5mg/ml amp', 2),
+('Metamizol 500 mg amp', 5);
+
+-- Inserta los datos en la tabla InventariosBase
+INSERT INTO InventariosBase (AmbulanciaId, ItemId, CantidadMinima)
+SELECT 
+    @AmbulanciaId,
+    II.Id AS ItemId,
+    TIB.Cantidad AS CantidadMinima
+FROM #TempInventarioBase TIB
+INNER JOIN ItemsInventario II ON TIB.NombreItem = II.Nombre;
+
+-- Limpieza
+DROP TABLE #TempInventarioBase;
+GO
+
+-- *********************************************************
+-- FIN DEL SCRIPT
+-- *********************************************************
