@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipo de Servicio</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="btn-back" onclick="history.back()">←</button>
+            <img src="../imagenes/logo1Rojo.png" alt="Logo" class="logo-small">
+        </div>
+
+        <h2 class="page-title">TIPO DE SERVICIO</h2>
+
+        <div class="progress-bar">
+            <div class="progress-step completed"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+        </div>
+
+        <div class="form-section">
+            <label for="servicio">Servicio</label>
+            <select id="servicio" class="form-select">
+                <option value="">Seleccionar servicio</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="continuarServicio()">
+            Continuar
+        </button>
+    </div>
+
+    <script src="../js/tipo-servicio.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsable del Servicio</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="btn-back" onclick="history.back()">←</button>
+            <img src="../imagenes/logo1Rojo.png" alt="Logo" class="logo-small">
+        </div>
+
+        <h2 class="page-title">NOMBRE DEL RESPONSABLE</h2>
+
+        <div class="progress-bar">
+            <div class="progress-step completed"></div>
+            <div class="progress-step completed"></div>
+            <div class="progress-step active"></div>
+        </div>
+
+        <div class="form-section">
+            <label for="responsable">Responsable del servicio</label>
+            <select id="responsable" class="form-select">
+                <option value="">Estado remitente - Rafael Alcaractro</option>
+            </select>
+
+            <label for="servicio-responsable" style="margin-top: 20px;">Servicio del responsable del servicio</label>
+            <input type="text" id="servicio-responsable" class="form-input" 
+                   placeholder="Relaciones Vecinales - Practicus Pellan" readonly>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="continuarResponsable()">
+            Continuar
+        </button>
+    </div>
+
+    <script src="../js/responsable.js"></script>
+</body>
+</html>
