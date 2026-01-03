@@ -1,6 +1,0 @@
-@RetoCruzRoja_HostAddress = http://localhost:5183
-
-GET {{RetoCruzRoja_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
