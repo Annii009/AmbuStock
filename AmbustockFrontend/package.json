@@ -1,0 +1,11 @@
+{
+  "name": "ambustock-frontend",
+  "version": "1.0.0",
+  "description": "AmbuStock Frontend Application",
+  "scripts": {
+    "start": "http-server -p 5501 -c-1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

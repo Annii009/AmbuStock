@@ -3,34 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tipo de Servicio</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>Tipo de Servicio - AmbuStock</title>
+    <link rel="stylesheet" href="../css/tipo-servicio.css">
 </head>
 <body>
     <div class="container">
+        <!-- Header con logo y flecha atrás -->
         <div class="header">
-            <button class="btn-back" onclick="history.back()">←</button>
-            <img src="../imagenes/logo1Rojo.png" alt="Logo" class="logo-small">
+            <button class="back-button" onclick="window.location.href='seleccion-ambulancia.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <img src="../imagenes/logo1Rojo.png" alt="AmbuStock" class="logo-small">
         </div>
 
-        <h2 class="page-title">TIPO DE SERVICIO</h2>
+        <!-- Título -->
+        <h1>TIPO DE SERVICIO</h1>
 
-        <div class="progress-bar">
-            <div class="progress-step completed"></div>
-            <div class="progress-step active"></div>
-            <div class="progress-step"></div>
+        <!-- Progress bar -->
+        <div class="progress-container">
+            <div class="progress-bar completed"></div>
+            <div class="progress-bar active"></div>
+            <div class="progress-bar"></div>
         </div>
 
-        <div class="form-section">
+        <!-- Form -->
+        <div class="form-content">
             <label for="servicio">Servicio</label>
-            <select id="servicio" class="form-select">
-                <option value="">Seleccionar servicio</option>
-            </select>
+            <div class="select-wrapper">
+                <select id="servicio" class="custom-select">
+                    <option value="">Seleccionar servicio</option>
+                </select>
+            </div>
         </div>
 
-        <button class="btn btn-primary btn-full" onclick="continuarServicio()">
-            Continuar
-        </button>
+        <!-- Botón continuar -->
+        <button class="btn-continuar" id="btnContinuar" disabled>Continuar</button>
     </div>
 
     <script src="../js/tipo-servicio.js"></script>

@@ -1,40 +1,81 @@
-const API_URL = 'http://localhost:5021/api'; // Ajusta según tu puerto
+// Elementos del DOM
+const selectAmbulancia = document.getElementById('ambulancia');
+const btnContinuar = document.getElementById('btnContinuar');
 
-// Cargar ambulancias al iniciar
-document.addEventListener('DOMContentLoaded', async () => {
-    await cargarAmbulancias();
-});
+// URL del backend
+const API_URL = 'http://localhost:5021/api';
 
+// Cargar ambulancias desde el backend
 async function cargarAmbulancias() {
     try {
-        const response = await fetch(`${API_URL}/Ambulancia`);
+        // Mostrar loading
+        selectAmbulancia.classList.add('loading');
+        selectAmbulancia.innerHTML = '<option value="">Cargando...</option>';
+        selectAmbulancia.disabled = true;
+
+        // Obtener token del localStorage
+        const token = localStorage.getItem('token');
+        
+        // if (!token) {
+        //     window.location.href = 'login.html';
+        //     return;
+        // }
+
+        // Hacer petición al backend
+        const response = await fetch(`${API_URL}/Ambulancia`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al cargar ambulancias');
+        }
+
         const ambulancias = await response.json();
+
+        // Limpiar el select
+        selectAmbulancia.innerHTML = '<option value="">Seleccionar unidad</option>';
         
-        const select = document.getElementById('ambulancia');
-        
+        // Añadir las ambulancias al select
         ambulancias.forEach(ambulancia => {
             const option = document.createElement('option');
-            option.value = ambulancia.idAmbulancia;
-            option.textContent = `${ambulancia.nombre} - ${ambulancia.matricula}`;
-            select.appendChild(option);
+            option.value = ambulancia.id;
+            option.textContent = ambulancia.nombre || ambulancia.matricula || `Ambulancia ${ambulancia.id}`;
+            selectAmbulancia.appendChild(option);
         });
+
+        // Restaurar estado normal
+        selectAmbulancia.classList.remove('loading');
+        selectAmbulancia.disabled = false;
+
     } catch (error) {
-        console.error('Error al cargar ambulancias:', error);
-        alert('Error al cargar las ambulancias. Por favor, intente de nuevo.');
+        console.error('Error:', error);
+        selectAmbulancia.innerHTML = '<option value="">Error al cargar ambulancias</option>';
+        selectAmbulancia.classList.remove('loading');
     }
 }
 
-function continuarSeleccion() {
-    const ambulanciaId = document.getElementById('ambulancia').value;
+// Habilitar/deshabilitar botón continuar
+selectAmbulancia.addEventListener('change', () => {
+    btnContinuar.disabled = !selectAmbulancia.value;
+});
+
+// Continuar a la siguiente pantalla
+btnContinuar.addEventListener('click', () => {
+    const ambulanciaId = selectAmbulancia.value;
     
-    if (!ambulanciaId) {
-        alert('Por favor, seleccione una ambulancia');
-        return;
+    if (ambulanciaId) {
+        // Guardar la ambulancia seleccionada
+        localStorage.setItem('ambulanciaSeleccionada', ambulanciaId);
+        
+        // Ir a tipo de servicio
+        window.location.href = 'tipo-servicio.html';
     }
-    
-    // Guardar en localStorage para usar en otras páginas
-    localStorage.setItem('ambulanciaId', ambulanciaId);
-    
-    // Ir a siguiente página
-    location.href = 'tipo-servicio.html';
-}
+});
+
+
+// Cargar ambulancias al iniciar
+document.addEventListener('DOMContentLoaded', cargarAmbulancias);

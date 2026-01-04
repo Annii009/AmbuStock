@@ -1,50 +1,75 @@
+// Elementos del DOM
+const selectServicio = document.getElementById('servicio');
+const btnContinuar = document.getElementById('btnContinuar');
+
+// URL del backend
 const API_URL = 'http://localhost:5021/api';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await cargarTiposServicio();
+// Cargar tipos de servicio desde el backend
+async function cargarServicios() {
+    try {
+        // Mostrar loading
+        selectServicio.classList.add('loading');
+        selectServicio.innerHTML = '<option value="">Cargando...</option>';
+        selectServicio.disabled = true;
+
+        // Obtener token del localStorage
+        const token = localStorage.getItem('token');
+
+        // Hacer petición al backend
+        const response = await fetch(`${API_URL}/Servicio`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al cargar servicios');
+        }
+
+        const servicios = await response.json();
+
+        // Limpiar el select
+        selectServicio.innerHTML = '<option value="">Seleccionar servicio</option>';
+        
+        // Añadir los servicios al select
+        servicios.forEach(servicio => {
+            const option = document.createElement('option');
+            option.value = servicio.idServicio;
+            option.textContent = servicio.nombreServicio;
+            selectServicio.appendChild(option);
+        });
+
+        // Restaurar estado normal
+        selectServicio.classList.remove('loading');
+        selectServicio.disabled = false;
+
+    } catch (error) {
+        console.error('Error:', error);
+        selectServicio.innerHTML = '<option value="">Error al cargar servicios</option>';
+        selectServicio.classList.remove('loading');
+    }
+}
+
+// Habilitar/deshabilitar botón continuar
+selectServicio.addEventListener('change', () => {
+    btnContinuar.disabled = !selectServicio.value;
 });
 
-async function cargarTiposServicio() {
-    try {
-        const response = await fetch(`${API_URL}/Servicio`);
-        const servicios = await response.json();
+// Continuar a la siguiente pantalla
+btnContinuar.addEventListener('click', () => {
+    const servicioId = selectServicio.value;
+    
+    if (servicioId) {
+        // Guardar el servicio seleccionado
+        localStorage.setItem('servicioSeleccionado', servicioId);
         
-        const select = document.getElementById('servicio');
-        
-        // Agregar opciones predefinidas más comunes
-        const tiposServicio = [
-            'Emergencia médica',
-            'Accidente de tráfico',
-            'Traslado programado',
-            'Traslado urgente',
-            'Asistencia domiciliaria',
-            'Revisión cardiaca',
-            'Revisión rutinaria',
-            'Servicio preventivo',
-            'Servicio especial',
-            'Otros'
-        ];
-        
-        tiposServicio.forEach(tipo => {
-            const option = document.createElement('option');
-            option.value = tipo;
-            option.textContent = tipo;
-            select.appendChild(option);
-        });
-        
-    } catch (error) {
-        console.error('Error al cargar servicios:', error);
+        // Ir a la siguiente pantalla
+        window.location.href = 'revision.html';
     }
-}
+});
 
-function continuarServicio() {
-    const tipoServicio = document.getElementById('servicio').value;
-    
-    if (!tipoServicio) {
-        alert('Por favor, seleccione un tipo de servicio');
-        return;
-    }
-    
-    localStorage.setItem('tipoServicio', tipoServicio);
-    location.href = 'responsable.html';
-}
+// Cargar servicios al iniciar
+document.addEventListener('DOMContentLoaded', cargarServicios);

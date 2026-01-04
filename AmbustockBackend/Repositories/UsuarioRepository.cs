@@ -109,11 +109,11 @@ namespace AmbustockBackend.Repositories
                 connection);
 
             command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
-            command.Parameters.AddWithValue("@Rol", (object)usuario.Rol ?? DBNull.Value);
-            command.Parameters.AddWithValue("@Email", (object)usuario.Email ?? DBNull.Value);
+            command.Parameters.AddWithValue("@Rol", (object?)usuario.Rol ?? DBNull.Value);
+            command.Parameters.AddWithValue("@Email", (object?)usuario.Email ?? DBNull.Value);
             command.Parameters.AddWithValue("@Password", usuario.Password);
-            command.Parameters.AddWithValue("@IdResponsable", (object)usuario.IdResponsable ?? DBNull.Value);
-            command.Parameters.AddWithValue("@IdCorreo", (object)usuario.IdCorreo ?? DBNull.Value);
+            command.Parameters.AddWithValue("@IdResponsable", (object?)usuario.IdResponsable ?? DBNull.Value);
+            command.Parameters.AddWithValue("@IdCorreo", (object?)usuario.IdCorreo ?? DBNull.Value);
 
             var id = (int)await command.ExecuteScalarAsync();
             usuario.IdUsuario = id;
@@ -139,11 +139,11 @@ namespace AmbustockBackend.Repositories
 
             command.Parameters.AddWithValue("@Id", usuario.IdUsuario);
             command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
-            command.Parameters.AddWithValue("@Rol", (object)usuario.Rol ?? DBNull.Value);
-            command.Parameters.AddWithValue("@Email", (object)usuario.Email ?? DBNull.Value);
+            command.Parameters.AddWithValue("@Rol", (object?)usuario.Rol ?? DBNull.Value);
+            command.Parameters.AddWithValue("@Email", (object?)usuario.Email ?? DBNull.Value);
             command.Parameters.AddWithValue("@Password", usuario.Password);
-            command.Parameters.AddWithValue("@IdResponsable", (object)usuario.IdResponsable ?? DBNull.Value);
-            command.Parameters.AddWithValue("@IdCorreo", (object)usuario.IdCorreo ?? DBNull.Value);
+            command.Parameters.AddWithValue("@IdResponsable", (object?)usuario.IdResponsable ?? DBNull.Value);
+            command.Parameters.AddWithValue("@IdCorreo", (object?)usuario.IdCorreo ?? DBNull.Value);
 
             await command.ExecuteNonQueryAsync();
         }

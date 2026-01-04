@@ -11,5 +11,6 @@ namespace AmbustockBackend.Repositories
         Task DeleteAsync(int id);
         Task<Usuarios?> GetByEmailAsync(string email);
         Task<Usuarios?> GetByEmailAndPasswordAsync(string email, string password);
+
     }
 }

@@ -1,0 +1,20 @@
+# para iniciar el docker en windows #
+ docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=P@ssw0rd2025!" -p 8308:1433 --name sqlserver-ambustock --platform linux/amd64 -d mcr.microsoft.com/mssql/server:2022-latest
+
+
+
+# para inciar el docker en mac #
+
+docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=P@ssw0rd2025!' -p 8308:1433 --name sqlserver-ambustock --platform linux/amd64 -d mcr.microsoft.com/mssql/server:2022-latest
+
+# correr el backend #
+
+cd .\AmbustockBackend\
+
+dotnet clean
+dotnet build
+dotnet run
+
+http://localhost:5021/swagger
+
+

@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmbuStock - Inicio</title>
+    <title>AmbuStock - Bienvenida</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body>
+<body class="welcome-screen">
     <div class="container">
-        <div class="logo-container">
-            <img src="../imagenes/logo2Rojo.png" alt="AmbuStock Logo" class="logo">
-            <h1>AMBU<span>STOCK</span></h1>
+        <div class="welcome-image">
+            <img src="../imagenes/portada.png" alt="Ambulancia" />
         </div>
-
-        <div class="welcome-section">
-            <h2>BIENVENIDO A AMBUSTOCK</h2>
-            <p>Control de inventarios de ambulancias cómodo y sencillo</p>
-        </div>
-
-        <div class="button-container">
-            <button class="btn btn-primary" onclick="location.href='../html/empezar-revision.html'">
-                Empezar revisión
-            </button>
-            <button class="btn btn-secondary" onclick="location.href='../html/material-gastado.html'">
-                Material gastado
-            </button>
+        
+        <div class="welcome-content">
+            <h1>¡BIENVENIDO A AMBUSTOCK!</h1>
+            <p>Un servicio de revisión de ambulancias cómodo y sencillo. En un click puedes tener todo a tu alcance.</p>
+            
+            <button class="btn btn-primary" onclick="window.location.href='register.html'">Empezar</button>
+            
+            <div class="footer-link">
+                <span>¿Eres nuevo por aquí? <a href="register.html">Registrarse</a></span>
+            </div>
         </div>
     </div>
+
 </body>
 </html>

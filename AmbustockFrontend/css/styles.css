@@ -1,259 +1,236 @@
+/* Import de fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+/* Reset y configuración base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --primary-red: #891D1A;
+    --primary-red-hover: #6D1715;
+    --text-dark: #1A1A1A;
+    --text-gray: #4A4A4A;
+    --link-red: #891D1A;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.container {
-    max-width: 400px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-/* Logo y Header */
-.logo-container {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.logo {
-    width: 80px;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.logo-container h1 {
-    font-size: 32px;
-    color: #8B2332;
-    font-weight: bold;
-}
-
-.logo-container h1 span {
-    color: #333;
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.btn-back {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #333;
-    cursor: pointer;
-    padding: 5px 10px;
-}
-
-.logo-small {
-    width: 50px;
-    height: auto;
-}
-
-/* Secciones */
-.welcome-section {
-    text-align: center;
-    margin: 40px 0;
-}
-
-.welcome-section h2 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-
-.welcome-section p {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-}
-
-.page-title {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Barra de progreso */
-.progress-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin: 30px 0;
-}
-
-.progress-step {
-    width: 60px;
-    height: 4px;
-    background: #E0E0E0;
-    border-radius: 2px;
-    transition: background 0.3s;
-}
-
-.progress-step.active {
-    background: #8B2332;
-}
-
-.progress-step.completed {
-    background: #8B2332;
-}
-
-/* Formularios */
-.form-section {
-    margin: 30px 0;
-}
-
-.form-section label {
-    display: block;
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: 500;
-}
-
-.form-select,
-.form-input {
+    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
     width: 100%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 14px;
-    color: #333;
-    background: white;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23333' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    cursor: pointer;
+    min-height: 100vh;
 }
 
-.form-select:focus,
-.form-input:focus {
-    outline: none;
-    border-color: #8B2332;
+/* === PANTALLA DE BIENVENIDA === */
+.welcome-screen {
+    background: #FFFFFF;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
 }
 
-.form-input {
-    background-image: none;
-}
-
-/* Opciones de select con estilo especial */
-.form-select option.selected {
-    background: #FEE;
-    color: #8B2332;
-}
-
-/* Botones */
-.button-container {
+.welcome-screen .container {
+    width: 100%;
+    max-width: 428px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 40px;
+    justify-content: flex-start;
+    position: relative;
 }
 
+/* Imagen de la ambulancia */
+.welcome-image {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: -25px;
+    position: relative;
+    z-index: 0;
+}
+
+.welcome-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+}
+
+/* Contenido con efecto glassmorphism PERMANENTE */
+.welcome-content {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-top: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 30px 30px 0 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Título con Bebas Neue */
+.welcome-content h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text-dark);
+    text-align: left;
+    margin: 0 0 20px 0;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+}
+
+/* Párrafo con Source Sans 3 */
+.welcome-content p {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-gray);
+    text-align: left;
+    line-height: 1.65;
+    margin: 0 0 40px 0;
+}
+
+/* Botón principal */
 .btn {
-    padding: 16px 30px;
+    width: 100%;
+    height: 56px;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
-    font-weight: 500;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin: 0 0 30px 0;
 }
 
 .btn-primary {
-    background: #8B2332;
+    background: var(--primary-red);
     color: white;
+    box-shadow: 0 4px 12px rgba(137, 29, 26, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-primary:hover {
-    background: #6D1A27;
+    background: var(--primary-red-hover);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(139, 35, 50, 0.3);
+    box-shadow: 0 6px 16px rgba(137, 29, 26, 0.4);
 }
 
-.btn-secondary {
-    background: #A67C7C;
-    color: white;
+.btn-primary:active {
+    transform: translateY(0);
 }
 
-.btn-secondary:hover {
-    background: #8B6666;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(166, 124, 124, 0.3);
+/* Footer link */
+.footer-link {
+    font-family: 'Source Sans 3', sans-serif;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-gray);
+    padding: 0 0 25px 0;
+    margin-top: auto;
 }
 
-.btn-full {
-    width: 100%;
-    margin-top: 30px;
+.footer-link a {
+    color: var(--link-red);
+    text-decoration: none;
+    font-weight: 700;
 }
 
-/* Estilos para opciones seleccionadas */
-.form-select option:checked {
-    background: #8B2332;
-    color: white;
+.footer-link a:hover {
+    text-decoration: underline;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-    .container {
-        padding: 20px;
+/* Ajustes para pantallas pequeñas */
+@media (max-height: 700px) {
+    .welcome-image {
+        height: 40vh;
+        margin-bottom: -20px;
     }
-
-    .logo-container h1 {
-        font-size: 28px;
+    
+    .welcome-content {
+        padding: 35px 25px 25px;
     }
-
-    .page-title {
+    
+    .welcome-content h1 {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+    
+    .welcome-content p {
+        font-size: 13px;
+        margin-bottom: 30px;
+    }
+    
+    .btn {
+        height: 52px;
         font-size: 16px;
+        margin-bottom: 25px;
+    }
+    
+    .footer-link {
+        font-size: 12px;
+        padding-bottom: 20px;
     }
 }
 
-/* Animaciones */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+/* Ajustes para pantallas más altas */
+@media (min-height: 800px) {
+    .welcome-image {
+        height: 52vh;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .welcome-content {
+        padding: 45px 35px 35px;
+    }
+    
+    .welcome-content h1 {
+        font-size: 24px;
+        margin-bottom: 22px;
+    }
+    
+    .welcome-content p {
+        font-size: 15px;
+        margin-bottom: 45px;
+    }
+    
+    .btn {
+        height: 58px;
+        font-size: 18px;
+        margin-bottom: 35px;
+    }
+    
+    .footer-link {
+        padding-bottom: 30px;
     }
 }
 
-.container {
-    animation: fadeIn 0.5s ease;
-}
-
-/* Indicador de carga */
-.loading {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255,255,255,.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
+/* Fallback para navegadores sin backdrop-filter */
+@supports not (backdrop-filter: blur(40px)) {
+    .welcome-content {
+        background: rgba(255, 255, 255, 0.92);
+    }
 }
