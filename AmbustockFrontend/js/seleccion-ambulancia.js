@@ -15,11 +15,6 @@ async function cargarAmbulancias() {
 
         // Obtener token del localStorage
         const token = localStorage.getItem('token');
-        
-        // if (!token) {
-        //     window.location.href = 'login.html';
-        //     return;
-        // }
 
         // Hacer petición al backend
         const response = await fetch(`${API_URL}/Ambulancia`, {
@@ -35,6 +30,7 @@ async function cargarAmbulancias() {
         }
 
         const ambulancias = await response.json();
+        console.log('Ambulancias recibidas:', ambulancias);
 
         // Limpiar el select
         selectAmbulancia.innerHTML = '<option value="">Seleccionar unidad</option>';
@@ -42,8 +38,20 @@ async function cargarAmbulancias() {
         // Añadir las ambulancias al select
         ambulancias.forEach(ambulancia => {
             const option = document.createElement('option');
-            option.value = ambulancia.id;
-            option.textContent = ambulancia.nombre || ambulancia.matricula || `Ambulancia ${ambulancia.id}`;
+            option.value = ambulancia.idAmbulancia; // CAMBIO: IdAmbulancia → idAmbulancia
+            
+            // Construir texto, priorizando Nombre > Matricula > ID
+            let texto = 'Ambulancia';
+            
+            if (ambulancia.nombre && ambulancia.nombre.trim() !== '') { // CAMBIO: Nombre → nombre
+                texto = ambulancia.nombre.trim();
+            } else if (ambulancia.matricula && ambulancia.matricula.trim() !== '') { // CAMBIO: Matricula → matricula
+                texto = `Ambulancia ${ambulancia.matricula.trim()}`;
+            } else {
+                texto = `Ambulancia #${ambulancia.idAmbulancia}`; // CAMBIO: IdAmbulancia → idAmbulancia
+            }
+            
+            option.textContent = texto;
             selectAmbulancia.appendChild(option);
         });
 
@@ -68,14 +76,10 @@ btnContinuar.addEventListener('click', () => {
     const ambulanciaId = selectAmbulancia.value;
     
     if (ambulanciaId) {
-        // Guardar la ambulancia seleccionada
         localStorage.setItem('ambulanciaSeleccionada', ambulanciaId);
-        
-        // Ir a tipo de servicio
         window.location.href = 'tipo-servicio.html';
     }
 });
-
 
 // Cargar ambulancias al iniciar
 document.addEventListener('DOMContentLoaded', cargarAmbulancias);

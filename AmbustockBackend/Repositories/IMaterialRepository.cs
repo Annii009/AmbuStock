@@ -13,5 +13,6 @@ namespace AmbustockBackend.Repositories
         Task<IEnumerable<Materiales>> GetByCajonIdAsync(int idCajon);
         Task<IEnumerable<Materiales>> GetByCantidadBajaAsync(int cantidadMinima);
         Task UpdateCantidadAsync(int idMaterial, int nuevaCantidad);
+        Task<IEnumerable<Materiales>> GetByZonaSinCajonAsync(int idZona);
     }
 }

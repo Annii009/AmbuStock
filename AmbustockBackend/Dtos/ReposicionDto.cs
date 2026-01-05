@@ -8,5 +8,6 @@ namespace AmbustockBackend.Dtos
         public int? Cantidad { get; set; }
         public string Comentarios { get; set; }
         public string FotoEvidenciaBase64 { get; set; }
+        public List<ZonaDto> Zonas { get; set; }
     }
 }

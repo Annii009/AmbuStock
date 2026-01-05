@@ -67,7 +67,7 @@ btnContinuar.addEventListener('click', () => {
         localStorage.setItem('servicioSeleccionado', servicioId);
         
         // Ir a la siguiente pantalla
-        window.location.href = 'revision.html';
+        window.location.href = 'nombre-responsable.html';
     }
 });
 

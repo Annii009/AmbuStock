@@ -93,6 +93,7 @@ builder.Services.AddScoped<ServicioService>();
 builder.Services.AddScoped<ServicioAmbulanciaService>();
 builder.Services.AddScoped<DetalleCorreoService>();
 builder.Services.AddScoped<AuthService>(); // NUEVO: Servicio de autenticación
+builder.Services.AddScoped<RevisionService>();
 
 builder.Services.AddCors(options =>
 {

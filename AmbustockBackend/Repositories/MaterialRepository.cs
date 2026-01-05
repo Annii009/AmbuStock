@@ -233,5 +233,46 @@ namespace AmbustockBackend.Repositories
                 Cajon = cajon
             };
         }
+
+        public async Task<IEnumerable<Materiales>> GetByZonaSinCajonAsync(int idZona)
+        {
+            var materiales = new List<Materiales>();
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            var command = new SqlCommand(
+                @"SELECT m.Id_material, m.nombre_Producto, m.cantidad, m.Id_zona, m.Id_cajon,
+                 z.nombre_zona
+          FROM materiales m
+          INNER JOIN zonas z ON m.Id_zona = z.ID_zona
+          WHERE m.Id_zona = @IdZona AND m.Id_cajon IS NULL",
+                connection);
+            command.Parameters.AddWithValue("@IdZona", idZona);
+
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var zona = new Zonas
+                {
+                    IdZona = reader.GetInt32(reader.GetOrdinal("Id_zona")),
+                    NombreZona = reader.GetString(reader.GetOrdinal("nombre_zona"))
+                };
+
+                materiales.Add(new Materiales
+                {
+                    IdMaterial = reader.GetInt32(reader.GetOrdinal("Id_material")),
+                    NombreProducto = reader.GetString(reader.GetOrdinal("nombre_Producto")),
+                    Cantidad = reader.GetInt32(reader.GetOrdinal("cantidad")),
+                    IdZona = reader.GetInt32(reader.GetOrdinal("Id_zona")),
+                    IdCajon = null,
+                    Zona = zona,
+                    Cajon = null
+                });
+            }
+            return materiales;
+        }
+
+
     }
 }

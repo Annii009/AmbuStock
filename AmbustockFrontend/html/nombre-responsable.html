@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre del Responsable - AmbuStock</title>
+    <link rel="stylesheet" href="../css/nombre-responsable.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header con logo y flecha atrás -->
+        <div class="header">
+            <button class="back-button" onclick="window.location.href='tipo-servicio.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <img src="../imagenes/logo1Rojo.png" alt="AmbuStock" class="logo-small">
+        </div>
+
+        <!-- Título -->
+        <h1>NOMBRE DEL RESPONSABLE</h1>
+
+        <!-- Progress bar -->
+        <div class="progress-container">
+            <div class="progress-bar completed"></div>
+            <div class="progress-bar completed"></div>
+            <div class="progress-bar active"></div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-content">
+            <label for="responsable">Responsable del servicio</label>
+            <input 
+                type="text" 
+                id="responsable" 
+                class="custom-input" 
+                placeholder="Nombre del responsable del servicio"
+                autocomplete="off"
+            >
+        </div>
+
+        <!-- Botón continuar -->
+        <button class="btn-continuar" id="btnContinuar" disabled>Continuar</button>
+    </div>
+
+    <script src="../js/nombre-responsable.js"></script>
+</body>
+</html>

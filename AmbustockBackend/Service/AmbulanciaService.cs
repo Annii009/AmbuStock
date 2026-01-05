@@ -93,5 +93,8 @@ namespace AmbustockBackend.Services
         {
             await _repository.DeleteAsync(id);
         }
+
+
+        
     }
 }

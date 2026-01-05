@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisión de Ambulancia - AmbuStock</title>
+    <link rel="stylesheet" href="../css/revision.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <button class="back-button" id="backButton">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Título -->
+        <h1>REVISIÓN DE AMBULANCIA</h1>
+
+        <!-- Barra de progreso -->
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>Progreso total</span>
+                <span id="progressText">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <!-- Lista de zonas -->
+        <div class="zonas-list" id="zonasList">
+            <!-- Se carga dinámicamente desde JavaScript -->
+        </div>
+
+        <!-- Botón finalizar -->
+        <button class="btn-finalizar" id="btnFinalizar" disabled>Finalizar</button>
+    </div>
+
+    <!-- Modal para cajones y materiales -->
+    <div class="modal" id="modalZona">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" id="modalClose">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <h2 id="modalTitle">Zona</h2>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/revision.js"></script>
+</body>
+</html>
