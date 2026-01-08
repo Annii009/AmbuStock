@@ -1,9 +1,8 @@
-// Variables globales
 const API_URL = 'http://localhost:5021/api';
 let revisionData = null;
 let ambulanciaId = null;
+let currentZonaIndex = null;
 
-// Elementos del DOM
 const zonasList = document.getElementById('zonasList');
 const progressBar = document.getElementById('progressBar');
 const progressText = document.getElementById('progressText');
@@ -13,8 +12,8 @@ const modalTitle = document.getElementById('modalTitle');
 const modalBody = document.getElementById('modalBody');
 const modalClose = document.getElementById('modalClose');
 const backButton = document.getElementById('backButton');
+const btnSelectAll = document.getElementById('btnSelectAll');
 
-// Cargar datos de la revisión
 async function cargarRevision() {
     try {
         ambulanciaId = localStorage.getItem('ambulanciaSeleccionada');
@@ -46,6 +45,7 @@ async function cargarRevision() {
         revisionData = await response.json();
         console.log('Datos recibidos:', revisionData);
         
+        inicializarCantidadesRevisadas();
         cargarEstadoGuardado();
         renderizarZonas();
         actualizarProgreso();
@@ -56,11 +56,32 @@ async function cargarRevision() {
     }
 }
 
-// Renderizar lista de zonas
+function inicializarCantidadesRevisadas() {
+    revisionData.zonas.forEach(zona => {
+        if (zona.materiales) {
+            zona.materiales.forEach(material => {
+                if (material.cantidadRevisada === undefined) {
+                    material.cantidadRevisada = 0;
+                }
+            });
+        }
+        if (zona.cajones) {
+            zona.cajones.forEach(cajon => {
+                if (cajon.materiales) {
+                    cajon.materiales.forEach(material => {
+                        if (material.cantidadRevisada === undefined) {
+                            material.cantidadRevisada = 0;
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
 function renderizarZonas() {
     zonasList.innerHTML = '';
     
-    // CAMBIO: Zonas → zonas
     if (!revisionData.zonas || !Array.isArray(revisionData.zonas)) {
         console.error('No hay zonas disponibles');
         return;
@@ -93,7 +114,6 @@ function renderizarZonas() {
     });
 }
 
-// Contar total de materiales en una zona
 function contarTotalMateriales(zona) {
     let total = zona.materiales ? zona.materiales.length : 0;
     if (zona.cajones) {
@@ -104,39 +124,48 @@ function contarTotalMateriales(zona) {
     return total;
 }
 
-// Contar materiales revisados en una zona
 function contarMaterialesRevisados(zona) {
-    let revisados = zona.materiales ? zona.materiales.filter(m => m.revisado).length : 0;
+    let revisados = 0;
+    
+    if (zona.materiales) {
+        revisados += zona.materiales.filter(m => m.cantidadRevisada === m.cantidad).length;
+    }
+    
     if (zona.cajones) {
         zona.cajones.forEach(cajon => {
-            revisados += cajon.materiales ? cajon.materiales.filter(m => m.revisado).length : 0;
+            if (cajon.materiales) {
+                revisados += cajon.materiales.filter(m => m.cantidadRevisada === m.cantidad).length;
+            }
         });
     }
+    
     return revisados;
 }
 
-// Abrir modal de zona
 function abrirModalZona(zona, zonaIndex) {
+    currentZonaIndex = zonaIndex;
     modalTitle.textContent = zona.nombreZona;
     modalBody.innerHTML = '';
     
-    // Renderizar cajones
     if (zona.cajones && zona.cajones.length > 0) {
         zona.cajones.forEach((cajon, cajonIndex) => {
             const cajonSection = document.createElement('div');
             cajonSection.className = 'cajon-section';
             
             const cajonHeader = document.createElement('div');
-            cajonHeader.className = 'cajon-header';
+            cajonHeader.className = 'cajon-header expanded';
             cajonHeader.innerHTML = `
                 <h3>${cajon.nombreCajon}</h3>
+                <button class="btn-select-cajon" data-zona="${zonaIndex}" data-cajon="${cajonIndex}">
+                    Seleccionar cajón
+                </button>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             `;
             
             const cajonMaterials = document.createElement('div');
-            cajonMaterials.className = 'cajon-materials';
+            cajonMaterials.className = 'cajon-materials show';
             
             if (cajon.materiales) {
                 cajon.materiales.forEach((material, materialIndex) => {
@@ -144,7 +173,14 @@ function abrirModalZona(zona, zonaIndex) {
                 });
             }
             
-            cajonHeader.addEventListener('click', () => {
+            const btnSelectCajon = cajonHeader.querySelector('.btn-select-cajon');
+            btnSelectCajon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                seleccionarCajon(zonaIndex, cajonIndex);
+            });
+            
+            const toggleBtn = cajonHeader.querySelector('svg').parentElement;
+            toggleBtn.addEventListener('click', () => {
                 cajonHeader.classList.toggle('expanded');
                 cajonMaterials.classList.toggle('show');
             });
@@ -155,7 +191,6 @@ function abrirModalZona(zona, zonaIndex) {
         });
     }
     
-    // Renderizar materiales sin cajón
     if (zona.materiales && zona.materiales.length > 0) {
         const materialesDirectos = document.createElement('div');
         materialesDirectos.className = 'materiales-directos';
@@ -177,39 +212,71 @@ function abrirModalZona(zona, zonaIndex) {
     modal.classList.add('show');
 }
 
-// Crear elemento de material
 function crearMaterialItem(material, zonaIndex, cajonIndex, materialIndex) {
     const materialItem = document.createElement('div');
     materialItem.className = 'material-item';
     materialItem.innerHTML = `
         <div class="material-info">
             <div class="material-name">${material.nombreProducto}</div>
-            <div class="material-cantidad">Cantidad: ${material.cantidad}</div>
+            <div class="material-cantidad">Cantidad esperada: ${material.cantidad}</div>
         </div>
-        <div class="material-check ${material.revisado ? 'checked' : ''}" 
-             data-zona="${zonaIndex}" 
-             data-cajon="${cajonIndex}" 
-             data-material="${materialIndex}">
+        <div class="quantity-controls">
+            <button class="btn-quantity minus" data-zona="${zonaIndex}" data-cajon="${cajonIndex}" data-material="${materialIndex}">
+                −
+            </button>
+            <span class="quantity-value">${material.cantidadRevisada || 0}</span>
+            <button class="btn-quantity plus" data-zona="${zonaIndex}" data-cajon="${cajonIndex}" data-material="${materialIndex}">
+                +
+            </button>
         </div>
     `;
     
-    const checkButton = materialItem.querySelector('.material-check');
-    checkButton.addEventListener('click', (e) => {
+    const btnMinus = materialItem.querySelector('.btn-quantity.minus');
+    const btnPlus = materialItem.querySelector('.btn-quantity.plus');
+    
+    btnMinus.addEventListener('click', (e) => {
         e.stopPropagation();
-        toggleMaterialRevisado(zonaIndex, cajonIndex, materialIndex);
+        cambiarCantidad(zonaIndex, cajonIndex, materialIndex, -1);
+    });
+    
+    btnPlus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        cambiarCantidad(zonaIndex, cajonIndex, materialIndex, 1);
     });
     
     return materialItem;
 }
 
-// Toggle estado de material revisado
-function toggleMaterialRevisado(zonaIndex, cajonIndex, materialIndex) {
+function cambiarCantidad(zonaIndex, cajonIndex, materialIndex, cambio) {
+    let material;
+    
     if (cajonIndex === null) {
-        revisionData.zonas[zonaIndex].materiales[materialIndex].revisado = 
-            !revisionData.zonas[zonaIndex].materiales[materialIndex].revisado;
+        material = revisionData.zonas[zonaIndex].materiales[materialIndex];
     } else {
-        revisionData.zonas[zonaIndex].cajones[cajonIndex].materiales[materialIndex].revisado = 
-            !revisionData.zonas[zonaIndex].cajones[cajonIndex].materiales[materialIndex].revisado;
+        material = revisionData.zonas[zonaIndex].cajones[cajonIndex].materiales[materialIndex];
+    }
+    
+    const nuevaCantidad = (material.cantidadRevisada || 0) + cambio;
+    
+    if (nuevaCantidad >= 0 && nuevaCantidad <= material.cantidad) {
+        material.cantidadRevisada = nuevaCantidad;
+        
+        guardarEstado();
+        
+        const zona = revisionData.zonas[zonaIndex];
+        abrirModalZona(zona, zonaIndex);
+        renderizarZonas();
+        actualizarProgreso();
+    }
+}
+
+function seleccionarCajon(zonaIndex, cajonIndex) {
+    const cajon = revisionData.zonas[zonaIndex].cajones[cajonIndex];
+    
+    if (cajon.materiales) {
+        cajon.materiales.forEach(material => {
+            material.cantidadRevisada = material.cantidad;
+        });
     }
     
     guardarEstado();
@@ -220,7 +287,33 @@ function toggleMaterialRevisado(zonaIndex, cajonIndex, materialIndex) {
     actualizarProgreso();
 }
 
-// Actualizar progreso general
+btnSelectAll.addEventListener('click', () => {
+    if (currentZonaIndex === null) return;
+    
+    const zona = revisionData.zonas[currentZonaIndex];
+    
+    if (zona.materiales) {
+        zona.materiales.forEach(material => {
+            material.cantidadRevisada = material.cantidad;
+        });
+    }
+    
+    if (zona.cajones) {
+        zona.cajones.forEach(cajon => {
+            if (cajon.materiales) {
+                cajon.materiales.forEach(material => {
+                    material.cantidadRevisada = material.cantidad;
+                });
+            }
+        });
+    }
+    
+    guardarEstado();
+    abrirModalZona(zona, currentZonaIndex);
+    renderizarZonas();
+    actualizarProgreso();
+});
+
 function actualizarProgreso() {
     let totalMateriales = 0;
     let materialesRevisados = 0;
@@ -235,15 +328,57 @@ function actualizarProgreso() {
     progressBar.style.width = `${porcentaje}%`;
     progressText.textContent = `${porcentaje}%`;
     
-    btnFinalizar.disabled = porcentaje !== 100;
+    // CAMBIO: Siempre habilitar el botón finalizar
+    btnFinalizar.disabled = false;
 }
 
-// Guardar estado en localStorage
+// Función para obtener materiales faltantes
+function obtenerMaterialesFaltantes() {
+    const materialesFaltantes = [];
+    
+    revisionData.zonas.forEach((zona, zonaIndex) => {
+        if (zona.materiales) {
+            zona.materiales.forEach(material => {
+                const cantidadFaltante = material.cantidad - (material.cantidadRevisada || 0);
+                if (cantidadFaltante > 0) {
+                    materialesFaltantes.push({
+                        nombreProducto: material.nombreProducto,
+                        cantidadFaltante: cantidadFaltante,
+                        nombreZona: zona.nombreZona,
+                        nombreCajon: null,
+                        ubicacion: zona.nombreZona
+                    });
+                }
+            });
+        }
+        
+        if (zona.cajones) {
+            zona.cajones.forEach(cajon => {
+                if (cajon.materiales) {
+                    cajon.materiales.forEach(material => {
+                        const cantidadFaltante = material.cantidad - (material.cantidadRevisada || 0);
+                        if (cantidadFaltante > 0) {
+                            materialesFaltantes.push({
+                                nombreProducto: material.nombreProducto,
+                                cantidadFaltante: cantidadFaltante,
+                                nombreZona: zona.nombreZona,
+                                nombreCajon: cajon.nombreCajon,
+                                ubicacion: `${cajon.nombreCajon} - ${zona.nombreZona}`
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    
+    return materialesFaltantes;
+}
+
 function guardarEstado() {
     localStorage.setItem(`revision_${ambulanciaId}`, JSON.stringify(revisionData));
 }
 
-// Cargar estado guardado
 function cargarEstadoGuardado() {
     const estadoGuardado = localStorage.getItem(`revision_${ambulanciaId}`);
     if (estadoGuardado) {
@@ -253,7 +388,7 @@ function cargarEstadoGuardado() {
                 if (zona.materiales && estadoData.zonas[zIndex] && estadoData.zonas[zIndex].materiales) {
                     zona.materiales.forEach((material, mIndex) => {
                         if (estadoData.zonas[zIndex].materiales[mIndex]) {
-                            material.revisado = estadoData.zonas[zIndex].materiales[mIndex].revisado;
+                            material.cantidadRevisada = estadoData.zonas[zIndex].materiales[mIndex].cantidadRevisada || 0;
                         }
                     });
                 }
@@ -262,7 +397,7 @@ function cargarEstadoGuardado() {
                         if (cajon.materiales && estadoData.zonas[zIndex].cajones[cIndex] && estadoData.zonas[zIndex].cajones[cIndex].materiales) {
                             cajon.materiales.forEach((material, mIndex) => {
                                 if (estadoData.zonas[zIndex].cajones[cIndex].materiales[mIndex]) {
-                                    material.revisado = estadoData.zonas[zIndex].cajones[cIndex].materiales[mIndex].revisado;
+                                    material.cantidadRevisada = estadoData.zonas[zIndex].cajones[cIndex].materiales[mIndex].cantidadRevisada || 0;
                                 }
                             });
                         }
@@ -273,27 +408,31 @@ function cargarEstadoGuardado() {
     }
 }
 
-// Cerrar modal
 modalClose.addEventListener('click', () => {
     modal.classList.remove('show');
+    currentZonaIndex = null;
 });
 
 modal.addEventListener('click', (e) => {
     if (e.target === modal) {
         modal.classList.remove('show');
+        currentZonaIndex = null;
     }
 });
 
-// Botón volver
 backButton.addEventListener('click', () => {
     if (confirm('¿Estás seguro de que quieres salir? El progreso se guardará automáticamente.')) {
         window.location.href = 'nombre-responsable.html';
     }
 });
 
-// Finalizar revisión
 btnFinalizar.addEventListener('click', async () => {
     try {
+        const materialesFaltantes = obtenerMaterialesFaltantes();
+        
+        // Guardar materiales faltantes en localStorage
+        localStorage.setItem('materialesFaltantes', JSON.stringify(materialesFaltantes));
+        
         const token = localStorage.getItem('token');
         const ambulanciaId = localStorage.getItem('ambulanciaSeleccionada');
         const servicioId = localStorage.getItem('servicioSeleccionado');
@@ -304,18 +443,16 @@ btnFinalizar.addEventListener('click', async () => {
             idServicio: parseInt(servicioId),
             nombreResponsable: nombreResponsable,
             fechaRevision: new Date().toISOString(),
-            zonas: revisionData.zonas
+            zonas: revisionData.zonas,
+            materialesFaltantes: materialesFaltantes
         };
         
         console.log('Revisión completada:', revisionCompleta);
         
         localStorage.removeItem(`revision_${ambulanciaId}`);
-        localStorage.removeItem('ambulanciaSeleccionada');
-        localStorage.removeItem('servicioSeleccionado');
-        localStorage.removeItem('nombreResponsable');
         
-        alert('¡Revisión completada exitosamente!');
-        window.location.href = 'principal.html';
+        // Redirigir a la pantalla de materiales faltantes
+        window.location.href = 'materiales-faltantes.html';
         
     } catch (error) {
         console.error('Error:', error);
@@ -323,5 +460,4 @@ btnFinalizar.addEventListener('click', async () => {
     }
 });
 
-// Inicializar
 document.addEventListener('DOMContentLoaded', cargarRevision);

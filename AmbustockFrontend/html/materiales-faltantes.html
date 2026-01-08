@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material para Reponer - AmbuStock</title>
+    <link rel="stylesheet" href="../css/materiales-faltantes.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" id="backButton">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <h1>MATERIAL PARA REPONER</h1>
+
+        <!-- Alert de materiales faltantes -->
+        <div class="alert-box" id="alertBox">
+            <div class="alert-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+            </div>
+            <div class="alert-content">
+                <div class="alert-title"><span id="cantidadFaltantes">0</span> Materiales faltantes</div>
+                <div class="alert-text">Se encontraron deficiencias en la revisión del vehículo.</div>
+            </div>
+        </div>
+
+        <!-- Lista de materiales faltantes -->
+        <div class="section-title">Materiales faltantes</div>
+        
+        <div class="materiales-list" id="materialesList">
+            <!-- Se carga dinámicamente -->
+        </div>
+
+        <!-- Botón finalizar -->
+        <button class="btn-finalizar" id="btnFinalizar">Finalizado y repuesto</button>
+    </div>
+
+    <script src="../js/materiales-faltantes.js"></script>
+</body>
+</html>

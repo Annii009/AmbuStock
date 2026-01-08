@@ -1,9 +1,12 @@
 -- 1) SERVICIO
 INSERT INTO servicio (fecha_hora, nombre_servicio)
 VALUES
-    ('2026-01-01 08:30:00', N'Urgencia trauma'),
-    ('2026-01-01 12:15:00', N'Transporte programado'),
-    ('2026-01-02 03:45:00', N'Urgencia cardiaca');
+    ('2026-01-01 08:30:00', N'Retén de tarde'),
+    ('2026-01-01 12:15:00', N'Fútbol Romareda'),
+    ('2026-01-02 03:45:00', N'Baloncesto Príncipe Felipe'),
+    ('2026-01-01 06:45:00', N'Retén de Mañana'),
+    ('2026-01-01 12:30:00', N'Fútbol Romareda femenino'),
+    ('2026-01-02 16:00:00', N'Cabalgata Reyes Magos');
 
 -- 2) RESPONSABLE (sin FKs)
 INSERT INTO responsable (Nombre_Responsable, Fecha_Servicio)

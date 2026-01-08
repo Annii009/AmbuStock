@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <button class="back-button" id="backButton">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -17,10 +16,8 @@
             </button>
         </div>
 
-        <!-- Título -->
         <h1>REVISIÓN DE AMBULANCIA</h1>
 
-        <!-- Barra de progreso -->
         <div class="progress-section">
             <div class="progress-label">
                 <span>Progreso total</span>
@@ -31,16 +28,11 @@
             </div>
         </div>
 
-        <!-- Lista de zonas -->
-        <div class="zonas-list" id="zonasList">
-            <!-- Se carga dinámicamente desde JavaScript -->
-        </div>
+        <div class="zonas-list" id="zonasList"></div>
 
-        <!-- Botón finalizar -->
         <button class="btn-finalizar" id="btnFinalizar" disabled>Finalizar</button>
     </div>
 
-    <!-- Modal para cajones y materiales -->
     <div class="modal" id="modalZona">
         <div class="modal-content">
             <div class="modal-header">
@@ -52,9 +44,10 @@
                 </button>
                 <h2 id="modalTitle">Zona</h2>
             </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Contenido dinámico -->
+            <div class="modal-actions">
+                <button class="btn-select-all" id="btnSelectAll">Seleccionar toda la zona</button>
             </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
