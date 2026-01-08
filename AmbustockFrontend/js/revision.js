@@ -426,13 +426,9 @@ backButton.addEventListener('click', () => {
     }
 });
 
+// Finalizar revisión
 btnFinalizar.addEventListener('click', async () => {
     try {
-        const materialesFaltantes = obtenerMaterialesFaltantes();
-        
-        // Guardar materiales faltantes en localStorage
-        localStorage.setItem('materialesFaltantes', JSON.stringify(materialesFaltantes));
-        
         const token = localStorage.getItem('token');
         const ambulanciaId = localStorage.getItem('ambulanciaSeleccionada');
         const servicioId = localStorage.getItem('servicioSeleccionado');
@@ -443,21 +439,22 @@ btnFinalizar.addEventListener('click', async () => {
             idServicio: parseInt(servicioId),
             nombreResponsable: nombreResponsable,
             fechaRevision: new Date().toISOString(),
-            zonas: revisionData.zonas,
-            materialesFaltantes: materialesFaltantes
+            zonas: revisionData.zonas
         };
         
-        console.log('Revisión completada:', revisionCompleta);
         
+        // TODO: Aquí puedes hacer POST al backend para guardar la revisión
+        
+        // Limpiar estado guardado de la revisión
         localStorage.removeItem(`revision_${ambulanciaId}`);
         
-        // Redirigir a la pantalla de materiales faltantes
-        window.location.href = 'materiales-faltantes.html';
+        // Redirigir a misión cumplida
+        window.location.href = 'mision-cumplida.html';
         
     } catch (error) {
         console.error('Error:', error);
-        alert('Error al finalizar la revisión');
     }
 });
+
 
 document.addEventListener('DOMContentLoaded', cargarRevision);

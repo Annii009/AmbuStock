@@ -137,7 +137,7 @@ h1 {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background-color: #4CAF50;
+    background-color: #71B48D;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -235,7 +235,7 @@ h1 {
 .btn-select-all {
     width: 100%;
     padding: 12px;
-    background-color: #4CAF50;
+    background-color: #71B48D;
     color: white;
     border: none;
     border-radius: 8px;
@@ -246,7 +246,7 @@ h1 {
 }
 
 .btn-select-all:hover {
-    background-color: #45a049;
+    background-color: #71B48D;
 }
 
 .modal-body {
@@ -288,7 +288,7 @@ h1 {
 
 .btn-select-cajon {
     padding: 6px 12px;
-    background-color: #4CAF50;
+    background-color: #71B48D;
     color: white;
     border: none;
     border-radius: 6px;
@@ -299,7 +299,7 @@ h1 {
 }
 
 .btn-select-cajon:hover {
-    background-color: #45a049;
+    background-color: #71B48D;
 }
 
 .cajon-materials {

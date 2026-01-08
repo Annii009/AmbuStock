@@ -58,7 +58,7 @@ h1 {
 .alert-icon {
     width: 48px;
     height: 48px;
-    background-color: #dc3545;
+    background-color: #8b2e2e;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -79,13 +79,13 @@ h1 {
 .alert-title {
     font-size: 18px;
     font-weight: bold;
-    color: #721c24;
+    color: #8b2e2e;
     margin-bottom: 4px;
 }
 
 .alert-text {
     font-size: 14px;
-    color: #721c24;
+    color: #8b2e2e;
 }
 
 .section-title {
@@ -142,7 +142,7 @@ h1 {
 
 .material-falta {
     font-size: 14px;
-    color: #dc3545;
+    color: #8b2e2e;
     font-weight: 600;
     margin-bottom: 2px;
 }
