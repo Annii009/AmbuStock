@@ -52,8 +52,7 @@ btnFinalizar.addEventListener('click', () => {
     localStorage.removeItem('servicioSeleccionado');
     localStorage.removeItem('nombreResponsable');
     
-    alert('¡Revisión completada exitosamente!');
-    window.location.href = 'principal.html';
+    window.location.href = 'mision-cumplida.html';
 });
 
 backButton.addEventListener('click', () => {

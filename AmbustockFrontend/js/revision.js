@@ -443,13 +443,11 @@ btnFinalizar.addEventListener('click', async () => {
         };
         
         
-        // TODO: Aquí puedes hacer POST al backend para guardar la revisión
-        
         // Limpiar estado guardado de la revisión
         localStorage.removeItem(`revision_${ambulanciaId}`);
         
         // Redirigir a misión cumplida
-        window.location.href = 'mision-cumplida.html';
+        window.location.href = 'materiales-faltantes.html';
         
     } catch (error) {
         console.error('Error:', error);
