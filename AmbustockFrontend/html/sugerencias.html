@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugerencias - Ambustock</title>
+    <link rel="stylesheet" href="../css/sugerencias.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" id="backButton">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <img src="../imagenes/logo1Rojo.png" alt="Ambustock" class="logo">
+        </div>
+
+        <h1>SUGERENCIAS U OBSERVACIONES</h1>
+
+        <div class="progress-dots">
+            <span class="dot"></span>
+            <span class="dot active"></span>
+            <span class="dot"></span>
+        </div>
+
+        <textarea 
+            id="comentarios" 
+            placeholder="Añada comentarios sobre el servicio o el vehículo..." 
+            rows="6"
+        ></textarea>
+
+        <div class="upload-section">
+            <p class="optional-label">*Opcional</p>
+            
+            <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+            
+            <button class="btn-upload" id="btnUpload">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span>Subir fotos</span>
+            </button>
+
+            <div class="photos-grid" id="photosGrid"></div>
+        </div>
+
+        <button class="btn-continue" id="btnContinuar">Continuar</button>
+    </div>
+
+    <script src="../js/sugerencias.js"></script>
+</body>
+</html>

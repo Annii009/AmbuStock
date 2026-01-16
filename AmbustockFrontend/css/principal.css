@@ -14,6 +14,7 @@ body {
     justify-content: center;
     padding: 20px;
     position: relative;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body.dark-theme {
@@ -21,7 +22,6 @@ body.dark-theme {
     color: #ffffff;
 }
 
-/* Menú de tres puntos */
 .menu-container {
     position: absolute;
     top: 20px;
@@ -44,6 +44,7 @@ body.dark-theme {
     height: 5px;
     background-color: #333;
     border-radius: 50%;
+    transition: background-color 0.4s ease;
 }
 
 body.dark-theme .menu-button .dot {
@@ -61,6 +62,7 @@ body.dark-theme .menu-button .dot {
     padding: 8px 0;
     display: none;
     z-index: 999;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 body.dark-theme .dropdown-menu {
@@ -124,7 +126,6 @@ body.dark-theme .menu-item-danger:hover {
     font-size: 14px;
 }
 
-/* Toggle switch */
 .toggle-switch {
     position: relative;
     width: 44px;
@@ -147,7 +148,7 @@ body.dark-theme .menu-item-danger:hover {
     bottom: 0;
     background-color: #ccc;
     border-radius: 24px;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 .slider:before {
@@ -159,7 +160,7 @@ body.dark-theme .menu-item-danger:hover {
     bottom: 3px;
     background-color: white;
     border-radius: 50%;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 input:checked + .slider {
@@ -170,7 +171,6 @@ input:checked + .slider:before {
     transform: translateX(20px);
 }
 
-/* Contenedor principal */
 .container {
     text-align: center;
     max-width: 400px;
@@ -180,6 +180,7 @@ input:checked + .slider:before {
 .logo {
     width: 200px;
     margin-bottom: 40px;
+    transition: opacity 0.3s ease;
 }
 
 h1 {
@@ -187,6 +188,7 @@ h1 {
     font-weight: bold;
     margin-bottom: 12px;
     color: #1a1a1a;
+    transition: color 0.4s ease;
 }
 
 body.dark-theme h1 {
@@ -198,13 +200,13 @@ body.dark-theme h1 {
     color: #666;
     margin-bottom: 40px;
     line-height: 1.5;
+    transition: color 0.4s ease;
 }
 
 body.dark-theme .subtitle {
     color: #aaa;
 }
 
-/* Botones */
 .btn {
     width: 100%;
     padding: 16px;
@@ -247,16 +249,13 @@ body.dark-theme .btn-secondary:hover {
     color: white;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
     .container {
         padding: 20px;
     }
-    
     .logo {
         width: 250px;
     }
-    
     h1 {
         font-size: 20px;
     }

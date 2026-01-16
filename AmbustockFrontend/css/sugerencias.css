@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.back-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button svg {
+    width: 24px;
+    height: 24px;
+    color: #8B2E2E;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+/* Progress dots */
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.dot {
+    width: 40px;
+    height: 4px;
+    background-color: #ddd;
+    border-radius: 2px;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: #8B2E2E;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 30px;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #8B2E2E;
+}
+
+/* Upload section */
+.upload-section {
+    margin-bottom: 30px;
+}
+
+.optional-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.btn-upload {
+    width: 100%;
+    padding: 60px 20px;
+    border: 2px dashed #e0e0e0;
+    background: #f9f9f9;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s;
+}
+
+.btn-upload:hover {
+    border-color: #8B2E2E;
+    background: #f5f5f5;
+}
+
+.btn-upload svg {
+    width: 40px;
+    height: 40px;
+    color: #8B2E2E;
+}
+
+.btn-upload span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #8B2E2E;
+}
+
+/* Photos grid */
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.photo-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #e0e0e0;
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-remove-photo {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.btn-remove-photo:hover {
+    background: rgba(231, 76, 60, 0.9);
+}
+
+.btn-remove-photo svg {
+    width: 16px;
+    height: 16px;
+    color: white;
+}
+
+/* Continue button */
+.btn-continue {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #8B2E2E;
+    color: white;
+    transition: all 0.3s;
+}
+
+.btn-continue:hover {
+    background-color: #6d2424;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 46, 46, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    .photos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}

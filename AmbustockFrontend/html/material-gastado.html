@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Gastado - Ambustock</title>
+    <link rel="stylesheet" href="../css/material-gastado.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <button class="back-button" id="backButton">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <img src="../imagenes/logo1Rojo.png" alt="Ambustock" class="logo">
+        </div>
+
+        <h1>MATERIAL GASTADO DEL SERVICIO</h1>
+
+        <h2>Material gastado</h2>
+        <p class="subtitle">Seleccione o busque el material</p>
+
+        <div class="search-container">
+            <input type="text" id="searchMaterial" placeholder="Buscar material" autocomplete="off">
+            <button class="btn-add" id="btnAddMaterial">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+            <div class="autocomplete-list" id="materialAutocomplete"></div>
+        </div>
+
+        <div class="material-list" id="materialList"></div>
+
+        <h3 class="section-title">Servicio donde se ha gastado el material</h3>
+        
+        <div class="search-container">
+            <input type="text" id="searchServicio" placeholder="Ej: Cementerio día 31" autocomplete="off">
+            <div class="autocomplete-list" id="servicioAutocomplete"></div>
+        </div>
+
+        <h3 class="section-title">Persona que realiza la reposición</h3>
+        
+        <input type="text" id="nombreResponsable" placeholder="Ingrese nombre completo" class="text-input">
+
+        <button class="btn-continue" id="btnContinuar" disabled>Continuar</button>
+    </div>
+
+    <script src="../js/material-gastado.js"></script>
+</body>
+</html>

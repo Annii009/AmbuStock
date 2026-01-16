@@ -433,6 +433,10 @@ btnFinalizar.addEventListener('click', async () => {
         const ambulanciaId = localStorage.getItem('ambulanciaSeleccionada');
         const servicioId = localStorage.getItem('servicioSeleccionado');
         const nombreResponsable = localStorage.getItem('nombreResponsable');
+        const faltantes = obtenerMaterialesFaltantes();
+
+        //guardar materiales faltantes en el localStorage
+        localStorage.setItem('materialesFaltantes', JSON.stringify(faltantes));
         
         const revisionCompleta = {
             idAmbulancia: parseInt(ambulanciaId),
@@ -445,8 +449,8 @@ btnFinalizar.addEventListener('click', async () => {
         
         // Limpiar estado guardado de la revisión
         localStorage.removeItem(`revision_${ambulanciaId}`);
-        
-        // Redirigir a misión cumplida
+
+
         window.location.href = 'materiales-faltantes.html';
         
     } catch (error) {
