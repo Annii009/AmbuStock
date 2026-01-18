@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Revisiones - Ambustock</title>
+    <link rel="stylesheet" href="../css/ver-revisiones.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" id="backButton">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <h1>HISTORIAL DE REVISIONES</h1>
+
+        <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Buscar por ambulancia o revisor...">
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="todas">Todas</button>
+            <button class="filter-btn" data-filter="completada">Completadas</button>
+            <button class="filter-btn" data-filter="pendiente">Pendientes</button>
+            <button class="filter-btn" data-filter="sin-realizar">Sin realizar</button>
+            <button class="filter-btn" data-filter="urgente">Urgentes</button>
+        </div>
+
+        <div class="revisiones-list" id="revisionesLis"></div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Cargando revisiones...</p>
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <p>No se encontraron revisiones</p>
+        </div>
+    </div>
+
+    <script src="../js/ver-revisiones.js"></script>
+</body>
+</html>

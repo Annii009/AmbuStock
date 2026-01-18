@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     registerForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
+        const nombreResponsable = document.getElementById('registerNombre').value;
         const email = document.getElementById('registerEmail').value;
         const password = document.getElementById('registerPassword').value;
         
@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
         // Llamada a la API
-        await registerUser(email, password);
+        await registerUser(nombreResponsable, email, password);
     });
 
-    async function registerUser(email, password) {
+    async function registerUser(nombreResponsable, email, password) {
         const submitButton = registerForm.querySelector('button[type="submit"]');
         submitButton.classList.add('loading');
         hideError();
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    nombreResponsable: nombreResponsable,
                     email: email,
                     password: password
                 })

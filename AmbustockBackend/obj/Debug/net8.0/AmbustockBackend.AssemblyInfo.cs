@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AmbustockBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ecfc0d66a7180274acc074c728c5a23c83a35ee1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a3c5aea58e19afbd095687fa6f517385fb874cd")]
 [assembly: System.Reflection.AssemblyProductAttribute("AmbustockBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AmbustockBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

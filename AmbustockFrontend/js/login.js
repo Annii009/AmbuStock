@@ -57,8 +57,21 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Response data:', data);
 
             if (response.ok && data.token) {
-                // Guardar token
+                // Guardar token (ambas versiones para compatibilidad)
                 localStorage.setItem('authToken', data.token);
+                localStorage.setItem('token', data.token);
+                
+                // Guardar usuario completo como objeto
+                const usuario = {
+                    email: data.email,
+                    usuarioId: data.usuarioId,
+                    nombreResponsable: data.nombreUsuario || data.nombreResponsable,
+                    nombre: data.nombreUsuario,
+                    rol: data.rol
+                };
+                localStorage.setItem('usuario', JSON.stringify(usuario));
+                
+                // También guardar por separado para compatibilidad
                 localStorage.setItem('userEmail', data.email);
                 localStorage.setItem('userId', data.usuarioId);
                 localStorage.setItem('userName', data.nombreUsuario);
@@ -66,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 console.log('Login exitoso');
                 
-                window.location.href = 'principal.html'; // Cambia a tu pantalla principal
+                window.location.href = 'principal.html';
             } else {
                 showError(data.message || 'Email o contraseña incorrectos');
             }

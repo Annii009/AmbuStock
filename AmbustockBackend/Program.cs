@@ -79,6 +79,8 @@ builder.Services.AddScoped<IResponsableRepository, ResponsableRepository>();
 builder.Services.AddScoped<IServicioRepository, ServicioRepository>();
 builder.Services.AddScoped<IServicioAmbulanciaRepository, ServicioAmbulanciaRepository>();
 builder.Services.AddScoped<IDetalleCorreoRepository, DetalleCorreoRepository>();
+builder.Services.AddScoped<IRevisionRepository, RevisionRepository>();
+
 
 // Registrar Services
 builder.Services.AddScoped<AmbulanciaService>();
@@ -92,7 +94,7 @@ builder.Services.AddScoped<ResponsableService>();
 builder.Services.AddScoped<ServicioService>();
 builder.Services.AddScoped<ServicioAmbulanciaService>();
 builder.Services.AddScoped<DetalleCorreoService>();
-builder.Services.AddScoped<AuthService>(); // NUEVO: Servicio de autenticación
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<RevisionService>();
 
 builder.Services.AddCors(options =>

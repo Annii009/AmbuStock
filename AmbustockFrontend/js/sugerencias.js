@@ -6,6 +6,7 @@ const btnUpload = document.getElementById('btnUpload');
 const photosGrid = document.getElementById('photosGrid');
 const btnContinuar = document.getElementById('btnContinuar');
 
+const API_URL = 'http://localhost:5021/api';
 let fotosSeleccionadas = [];
 
 // Abrir selector de archivos
@@ -56,14 +57,101 @@ window.eliminarFoto = (index) => {
     renderizarFotos();
 };
 
+// Obtener datos de la ambulancia
+async function obtenerAmbulancia(id) {
+    try {
+        const token = localStorage.getItem('token') || localStorage.getItem('authToken');
+        const response = await fetch(`${API_URL}/Ambulancia/${id}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (response.ok) {
+            return await response.json();
+        }
+    } catch (error) {
+        console.error('Error al obtener ambulancia:', error);
+    }
+    return null;
+}
+
+// Guardar reposición en el historial
+async function guardarReposicionEnHistorial(reposicionData) {
+    try {
+        const token = localStorage.getItem('token') || localStorage.getItem('authToken');
+        const ambulanciaId = localStorage.getItem('ambulanciaSeleccionada');
+        
+        // Obtener datos de la ambulancia
+        const ambulancia = await obtenerAmbulancia(ambulanciaId);
+        
+        // Preparar datos de la reposición para el historial
+        const reposicion = {
+            id: Date.now(),
+            idReposicion: Date.now(),
+            idAmbulancia: parseInt(ambulanciaId),
+            nombreAmbulancia: ambulancia?.nombre || 'N/A',
+            matricula: ambulancia?.matricula || 'N/A',
+            nombreResponsable: reposicionData.responsable,
+            fechaReposicion: new Date().toISOString(),
+            fecha: new Date().toISOString(),
+            estado: 'pendiente',
+            servicio: reposicionData.servicio,
+            comentarios: reposicionData.comentarios || '',
+            fotos: reposicionData.fotos || [],
+            materiales: reposicionData.materiales.map(m => ({
+                nombreProducto: m.nombreProducto,
+                cantidad: m.cantidad,
+                cantidadFaltante: m.cantidad,
+                stockActual: 0,
+                ubicacion: m.ubicacion || m.nombreZona || 'N/A'
+            })),
+            materialesFaltantes: reposicionData.materiales
+        };
+        
+        console.log('Guardando reposición en historial:', reposicion);
+        
+        // Intentar guardar en backend
+        try {
+            const response = await fetch(`${API_URL}/Reposicion`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reposicion)
+            });
+
+            if (response.ok) {
+                console.log('Reposición guardada en backend');
+            } else {
+                throw new Error('Error al guardar en backend');
+            }
+        } catch (errorBackend) {
+            console.log('Backend no disponible, guardando solo en localStorage');
+        }
+        
+        // Siempre guardar también en localStorage como backup
+        let historial = JSON.parse(localStorage.getItem('historialReposiciones') || '[]');
+        historial.push(reposicion);
+        localStorage.setItem('historialReposiciones', JSON.stringify(historial));
+        
+        console.log('Reposición guardada en historial');
+        
+    } catch (error) {
+        console.error('Error al guardar reposición:', error);
+    }
+}
+
 // Continuar a resumen
-btnContinuar.addEventListener('click', () => {
+btnContinuar.addEventListener('click', async () => {
     const reposicionData = JSON.parse(localStorage.getItem('reposicionData') || '{}');
     
     reposicionData.comentarios = comentarios.value.trim();
     reposicionData.fotos = fotosSeleccionadas;
     
     localStorage.setItem('reposicionData', JSON.stringify(reposicionData));
+    
+    // Guardar en el historial de reposiciones
+    await guardarReposicionEnHistorial(reposicionData);
     
     window.location.href = 'todo-listo.html';
 });

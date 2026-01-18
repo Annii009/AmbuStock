@@ -106,6 +106,20 @@ CREATE TABLE Detalle_Correo (
     CONSTRAINT FK_DetalleCorreo_correo FOREIGN KEY (Id_correo) REFERENCES correo(Id_Correo)
 );
 
+
+CREATE TABLE Revisiones (
+    Id_revision INT PRIMARY KEY IDENTITY(1,1),
+    Id_ambulancia INT NOT NULL,
+    Id_servicio INT NOT NULL,
+    Nombre_Responsable NVARCHAR(200) NOT NULL,
+    Fecha_Revision DATETIME NOT NULL,
+    Total_Materiales INT NOT NULL,
+    Materiales_Revisados INT NOT NULL,
+    Estado NVARCHAR(50) NOT NULL,
+    CONSTRAINT FK_Revisiones_ambulancia FOREIGN KEY (Id_ambulancia) REFERENCES ambulancia(Id_ambulancia),
+    CONSTRAINT FK_Revisiones_servicio FOREIGN KEY (Id_servicio) REFERENCES servicio(Id_servicio)
+);
+
 -- Agregar columnas y FKs adicionales
 
 ALTER TABLE servicio

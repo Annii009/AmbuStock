@@ -1,3 +1,4 @@
+const API_URL = 'http://localhost:5021/api';
 const materialesList = document.getElementById('materialesList');
 const cantidadFaltantes = document.getElementById('cantidadFaltantes');
 const btnFinalizar = document.getElementById('btnFinalizar');
@@ -46,7 +47,97 @@ function cargarMaterialesFaltantes() {
     }
 }
 
-btnFinalizar.addEventListener('click', () => {
+// Obtener datos de la ambulancia
+async function obtenerAmbulancia(id) {
+    try {
+        const token = localStorage.getItem('token') || localStorage.getItem('authToken');
+        const response = await fetch(`${API_URL}/Ambulancia/${id}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (response.ok) {
+            return await response.json();
+        }
+    } catch (error) {
+        console.error('Error al obtener ambulancia:', error);
+    }
+    return null;
+}
+
+// Guardar reposición automática por materiales faltantes
+async function guardarReposicionMaterialesFaltantes() {
+    try {
+        const token = localStorage.getItem('token') || localStorage.getItem('authToken');
+        const ambulanciaId = localStorage.getItem('ambulanciaSeleccionada');
+        const nombreResponsable = localStorage.getItem('nombreResponsable');
+        const materialesFaltantes = JSON.parse(localStorage.getItem('materialesFaltantes') || '[]');
+        
+        if (materialesFaltantes.length === 0) return;
+        
+        // Obtener datos de la ambulancia
+        const ambulancia = await obtenerAmbulancia(ambulanciaId);
+        
+        // Preparar datos de la reposición
+        const reposicion = {
+            id: Date.now(),
+            idReposicion: Date.now(),
+            idAmbulancia: parseInt(ambulanciaId),
+            nombreAmbulancia: ambulancia?.nombre || 'N/A',
+            matricula: ambulancia?.matricula || 'N/A',
+            nombreResponsable: nombreResponsable || 'Sin responsable',
+            fechaReposicion: new Date().toISOString(),
+            fecha: new Date().toISOString(),
+            estado: 'pendiente',
+            origen: 'revision',
+            materiales: materialesFaltantes.map(m => ({
+                nombreProducto: m.nombreProducto,
+                cantidad: m.cantidadFaltante,
+                cantidadFaltante: m.cantidadFaltante,
+                stockActual: 0,
+                ubicacion: m.ubicacion
+            })),
+            materialesFaltantes: materialesFaltantes
+        };
+        
+        console.log('Guardando reposición por materiales faltantes:', reposicion);
+        
+        // Intentar guardar en backend
+        try {
+            const response = await fetch(`${API_URL}/Reposicion`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reposicion)
+            });
+
+            if (response.ok) {
+                console.log('Reposición guardada en backend');
+            } else {
+                throw new Error('Error al guardar en backend');
+            }
+        } catch (errorBackend) {
+            console.log('Backend no disponible, guardando solo en localStorage');
+        }
+        
+        // Siempre guardar también en localStorage como backup
+        let historial = JSON.parse(localStorage.getItem('historialReposiciones') || '[]');
+        historial.push(reposicion);
+        localStorage.setItem('historialReposiciones', JSON.stringify(historial));
+        
+        console.log('Reposición guardada en historial');
+        
+    } catch (error) {
+        console.error('Error al guardar reposición:', error);
+    }
+}
+
+btnFinalizar.addEventListener('click', async () => {
+    // Guardar reposición antes de limpiar
+    await guardarReposicionMaterialesFaltantes();
+    
+    // Limpiar datos
     localStorage.removeItem('materialesFaltantes');
     localStorage.removeItem('ambulanciaSeleccionada');
     localStorage.removeItem('servicioSeleccionado');

@@ -26,7 +26,7 @@ async function cargarRevision() {
             return;
         }
 
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token') || localStorage.getItem('authToken');
         const url = `${API_URL}/Revision/ambulancia/${ambulanciaId}`;
         console.log('URL:', url);
         
@@ -328,11 +328,9 @@ function actualizarProgreso() {
     progressBar.style.width = `${porcentaje}%`;
     progressText.textContent = `${porcentaje}%`;
     
-    // CAMBIO: Siempre habilitar el botón finalizar
     btnFinalizar.disabled = false;
 }
 
-// Función para obtener materiales faltantes
 function obtenerMaterialesFaltantes() {
     const materialesFaltantes = [];
     
@@ -426,16 +424,16 @@ backButton.addEventListener('click', () => {
     }
 });
 
-// Finalizar revisión
+// Finalizar revisión y guardarla
 btnFinalizar.addEventListener('click', async () => {
     try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token') || localStorage.getItem('authToken');
         const ambulanciaId = localStorage.getItem('ambulanciaSeleccionada');
         const servicioId = localStorage.getItem('servicioSeleccionado');
         const nombreResponsable = localStorage.getItem('nombreResponsable');
         const faltantes = obtenerMaterialesFaltantes();
 
-        //guardar materiales faltantes en el localStorage
+        // Guardar materiales faltantes en el localStorage
         localStorage.setItem('materialesFaltantes', JSON.stringify(faltantes));
         
         const revisionCompleta = {
@@ -446,17 +444,34 @@ btnFinalizar.addEventListener('click', async () => {
             zonas: revisionData.zonas
         };
         
+        console.log('Guardando revisión:', revisionCompleta);
+        
+        // Guardar la revisión en el backend
+        const response = await fetch(`${API_URL}/Revision`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(revisionCompleta)
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al guardar la revisión');
+        }
+
+        const result = await response.json();
+        console.log('Revisión guardada:', result);
         
         // Limpiar estado guardado de la revisión
         localStorage.removeItem(`revision_${ambulanciaId}`);
-
 
         window.location.href = 'materiales-faltantes.html';
         
     } catch (error) {
         console.error('Error:', error);
+        alert('Error al guardar la revisión: ' + error.message);
     }
 });
-
 
 document.addEventListener('DOMContentLoaded', cargarRevision);
