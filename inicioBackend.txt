@@ -18,3 +18,20 @@ dotnet run
 http://localhost:5021/swagger
 
 
+
+
+para que corra docker
+# 1. Parar todo
+docker-compose down -v
+
+# 2. Levantar los contenedores
+docker-compose up -d
+
+# 3. Esperar a que SQL Server arranque
+sleep 30
+
+# 4. Crear la base de datos
+docker exec -it ambustock-sqlserver /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'P@ssw0rd2025!' -C -Q "CREATE DATABASE AmbustockDB"
+
+# 5. Ejecutar el script de configuración
+./setup-database.sh

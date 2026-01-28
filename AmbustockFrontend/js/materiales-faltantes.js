@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:5021/api';
+// const API_URL = 'http://localhost:5002/api';
+const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
 const materialesList = document.getElementById('materialesList');
 const cantidadFaltantes = document.getElementById('cantidadFaltantes');
 const btnFinalizar = document.getElementById('btnFinalizar');

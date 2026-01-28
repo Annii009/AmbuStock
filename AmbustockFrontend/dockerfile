@@ -1,0 +1,20 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copiar package.json e instalar dependencias
+COPY AmbustockFrontend/package.json .
+RUN npm install
+
+# Copiar las carpetas css, js, imagenes a la raíz
+COPY AmbustockFrontend/css ./css
+COPY AmbustockFrontend/js ./js
+COPY AmbustockFrontend/imagenes ./imagenes
+
+# Copiar el contenido de html a la raíz
+COPY AmbustockFrontend/html/* .
+
+EXPOSE 5501
+
+# Servir desde la raíz
+CMD ["npx", "http-server", ".", "-p", "5501", "-c-1"]

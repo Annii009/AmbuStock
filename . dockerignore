@@ -1,0 +1,21 @@
+# Archivos de .NET
+**/bin/
+**/obj/
+**/out/
+**/.vs/
+**/.vscode/
+
+# Archivos de Node.js
+**/node_modules/
+**/npm-debug.log
+
+# Archivos de sistema
+**/.DS_Store
+**/Thumbs.db
+**/.git/
+**/.gitignore
+**/*.md
+
+# Archivos de usuario
+**/*.user
+**/*.suo

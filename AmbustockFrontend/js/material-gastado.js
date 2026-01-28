@@ -1,5 +1,6 @@
 // Variables globales
-const API_URL = 'http://localhost:5021/api';
+// const API_URL = 'http://localhost:5002/api';
+const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
 let materialesSeleccionados = [];
 let servicioSeleccionado = null;
 let allMateriales = [];
@@ -200,7 +201,7 @@ btnContinuar.addEventListener('click', () => {
 });
 
 backButton.addEventListener('click', () => {
-    window.location.href = 'mision-cumplida.html';
+    window.location.href = 'principal.html';
 });
 
 document.addEventListener('DOMContentLoaded', cargarDatos);

@@ -2,6 +2,9 @@
 const backButton = document.getElementById('backButton');
 const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 const userName = document.getElementById('userName');
+const modalCerrarSesion = document.getElementById('modalCerrarSesion');
+const btnCancelar = document.getElementById('btnCancelar');
+const btnConfirmarCerrar = document.getElementById('btnConfirmarCerrar');
 
 // Cargar datos del usuario
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,19 +40,41 @@ backButton.addEventListener('click', () => {
     window.location.href = 'principal.html';
 });
 
-// Cerrar sesión
+// Mostrar modal de cerrar sesión
 btnCerrarSesion.addEventListener('click', () => {
-    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-        // Limpiar datos locales
-        localStorage.removeItem('token');
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('usuario');
-        localStorage.removeItem('ambulanciaSeleccionada');
-        localStorage.removeItem('servicioSeleccionado');
-        localStorage.removeItem('nombreResponsable');
-        localStorage.removeItem('reposicionData');
-        
-        // Redirigir al login
-        window.location.href = 'index.html';
+    modalCerrarSesion.style.display = 'flex';
+});
+
+// Cancelar cierre de sesión
+btnCancelar.addEventListener('click', () => {
+    modalCerrarSesion.style.display = 'none';
+});
+
+// Confirmar cierre de sesión
+btnConfirmarCerrar.addEventListener('click', () => {
+    // Limpiar datos locales
+    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('ambulanciaSeleccionada');
+    localStorage.removeItem('servicioSeleccionado');
+    localStorage.removeItem('nombreResponsable');
+    localStorage.removeItem('reposicionData');
+    
+    // Redirigir al login
+    window.location.href = 'index.html';
+});
+
+// Cerrar modal al hacer clic fuera de él
+modalCerrarSesion.addEventListener('click', (e) => {
+    if (e.target === modalCerrarSesion) {
+        modalCerrarSesion.style.display = 'none';
+    }
+});
+
+// Cerrar modal con tecla ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalCerrarSesion.style.display === 'flex') {
+        modalCerrarSesion.style.display = 'none';
     }
 });

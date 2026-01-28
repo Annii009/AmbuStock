@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfil - Ambustock</title>
-    <link rel="stylesheet" href="../css/perfil.css" />
+    <link rel="stylesheet" href="/css/perfil.css" />
+    <link rel="shortcut icon" href="/imagenes/logo1Rojo.png">
+    <link rel="icon" href="/imagenes/logo1Rojo.png">
   </head>
   <body>
     <div class="container">
@@ -19,12 +21,12 @@
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
-        <img src="../imagenes/logo1Rojo.png" alt="Ambustock" class="logo" />
+        <img src="/imagenes/logo1Rojo.png" alt="Ambustock" class="logo" />
       </div>
 
       <div class="profile-header">
         <div class="avatar">
-          <img src="../imagenes/perfil.png" alt="Perfil" class="avatar-img" />
+          <img src="/imagenes/perfil.png" alt="Perfil" class="avatar-img" />
         </div>
 
         <h1 id="userName"></h1>
@@ -202,6 +204,18 @@
       </div>
     </div>
 
-    <script src="../js/perfil.js"></script>
+
+        <!-- Modal de confirmación -->
+    <div id="modalCerrarSesion" class="modal-overlay">
+      <div class="modal-content">
+        <h2 class="modal-title">¿ESTAS SEGURO QUE QUIERES<br>CERRAR SESIÓN?</h2>
+        <div class="modal-buttons">
+          <button id="btnCancelar" class="btn-cancelar">Cancelar</button>
+          <button id="btnConfirmarCerrar" class="btn-confirmar">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/perfil.js"></script>
   </body>
 </html>
