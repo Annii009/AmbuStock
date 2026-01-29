@@ -1,5 +1,5 @@
 // Variables globales
-// const API_URL = 'http://localhost:5002/api';
+// const API_URL = 'http://localhost:5002';
 const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
 let todasLasRevisiones = [];
 let filtroActual = 'todas';
@@ -22,7 +22,7 @@ async function cargarRevisiones() {
         const token = localStorage.getItem('token') || localStorage.getItem('authToken');
         
         // Cargar historial de revisiones
-        const response = await fetch(`${API_URL}/Revision/historial`, {
+        const response = await fetch(`${API_URL}/api/Revision/historial`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

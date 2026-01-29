@@ -1,4 +1,4 @@
-// const API_URL = 'http://localhost:5002/api';
+// const API_URL = 'http://localhost:5002';
 const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
 let revisionData = null;
 let ambulanciaId = null;
@@ -28,7 +28,7 @@ async function cargarRevision() {
         }
 
         const token = localStorage.getItem('token') || localStorage.getItem('authToken');
-        const url = `${API_URL}/Revision/ambulancia/${ambulanciaId}`;
+        const url = `${API_URL}/api/Revision/ambulancia/${ambulanciaId}`;
         console.log('URL:', url);
         
         const response = await fetch(url, {
@@ -448,7 +448,7 @@ btnFinalizar.addEventListener('click', async () => {
         console.log('Guardando revisión:', revisionCompleta);
         
         // Guardar la revisión en el backend
-        const response = await fetch(`${API_URL}/Revision`, {
+        const response = await fetch(`${API_URL}/api/Revision`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

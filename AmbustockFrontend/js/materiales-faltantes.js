@@ -52,7 +52,7 @@ function cargarMaterialesFaltantes() {
 async function obtenerAmbulancia(id) {
     try {
         const token = localStorage.getItem('token') || localStorage.getItem('authToken');
-        const response = await fetch(`${API_URL}/Ambulancia/${id}`, {
+        const response = await fetch(`${API_URL}/api/Ambulancia/${id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         
@@ -104,7 +104,7 @@ async function guardarReposicionMaterialesFaltantes() {
         
         // Intentar guardar en backend
         try {
-            const response = await fetch(`${API_URL}/Reposicion`, {
+            const response = await fetch(`${API_URL}/api/Reposicion`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -1,4 +1,4 @@
-// const API_URL = 'http://localhost:5002/api';
+// const API_URL = 'http://localhost:5002';
 const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
 let reposicionData = null;
 let reposicionId = null;
@@ -33,7 +33,7 @@ async function cargarReposicion() {
         
         // Intentar cargar desde backend
         try {
-            const response = await fetch(`${API_URL}/Reposicion/${reposicionId}`, {
+            const response = await fetch(`${API_URL}/api/Reposicion/${reposicionId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -183,7 +183,7 @@ btnConfirmar.addEventListener('click', async () => {
         
         // Intentar guardar en backend
         try {
-            const response = await fetch(`${API_URL}/Reposicion/${reposicionId}/confirmar`, {
+            const response = await fetch(`${API_URL}/api/Reposicion/${reposicionId}/confirmar`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

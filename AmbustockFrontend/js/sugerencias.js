@@ -6,7 +6,7 @@ const btnUpload = document.getElementById('btnUpload');
 const photosGrid = document.getElementById('photosGrid');
 const btnContinuar = document.getElementById('btnContinuar');
 
-// const API_URL = 'http://localhost:5002/api';
+// const API_URL = 'http://localhost:5002';
 const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
 let fotosSeleccionadas = [];
 
@@ -62,7 +62,7 @@ window.eliminarFoto = (index) => {
 async function obtenerAmbulancia(id) {
     try {
         const token = localStorage.getItem('token') || localStorage.getItem('authToken');
-        const response = await fetch(`${API_URL}/Ambulancia/${id}`, {
+        const response = await fetch(`${API_URL}/api/Ambulancia/${id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         
@@ -112,7 +112,7 @@ async function guardarReposicionEnHistorial(reposicionData) {
         
         // Intentar guardar en backend
         try {
-            const response = await fetch(`${API_URL}/Reposicion`, {
+            const response = await fetch(`${API_URL}/api/Reposicion`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

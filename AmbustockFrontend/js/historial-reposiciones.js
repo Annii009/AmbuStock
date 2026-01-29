@@ -1,4 +1,4 @@
-// const API_URL = 'http://localhost:5002/api';
+// const API_URL = 'http://localhost:5002';
 const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
 let todasLasReposiciones = [];
 let filtroActual = 'todas';
@@ -22,7 +22,7 @@ async function cargarReposiciones() {
         
         // Intentar cargar desde backend
         try {
-            const response = await fetch(`${API_URL}/Reposicion/historial`, {
+            const response = await fetch(`${API_URL}/api/Reposicion/historial`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

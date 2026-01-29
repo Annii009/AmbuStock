@@ -1,5 +1,5 @@
 // Variables globales
-// const API_URL = 'http://localhost:5002/api';
+// const API_URL = 'http://localhost:5002';
 const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
 let materialesSeleccionados = [];
 let servicioSeleccionado = null;
@@ -22,12 +22,12 @@ async function cargarDatos() {
     try {
         const token = localStorage.getItem('token');
         
-        const responseMateriales = await fetch(`${API_URL}/Material`, {
+        const responseMateriales = await fetch(`${API_URL}/api/Material`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         allMateriales = await responseMateriales.json();
         
-        const responseServicios = await fetch(`${API_URL}/Servicio`, {
+        const responseServicios = await fetch(`${API_URL}/api/Servicio`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         allServicios = await responseServicios.json();
