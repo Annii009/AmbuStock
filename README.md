@@ -29,4 +29,12 @@ Sigue estos pasos para poner en marcha el entorno local en pocos minutos.
 git clone https://github.com/Annii009/AmbuStock.git
 cd AmbuStock
 
-### 3. 
+```
+
+### 3. Inicializar la página web
+```bash
+docker compose build
+docker compose up
+```
+
+
