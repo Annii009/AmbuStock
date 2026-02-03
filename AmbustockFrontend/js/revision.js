@@ -1,5 +1,4 @@
-// const API_URL = 'http://localhost:5002';
-const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
+const API_URL = 'http://localhost:5002';
 let revisionData = null;
 let ambulanciaId = null;
 let currentZonaIndex = null;

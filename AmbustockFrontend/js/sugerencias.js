@@ -6,8 +6,7 @@ const btnUpload = document.getElementById('btnUpload');
 const photosGrid = document.getElementById('photosGrid');
 const btnContinuar = document.getElementById('btnContinuar');
 
-// const API_URL = 'http://localhost:5002';
-const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
+const API_URL = 'http://localhost:5002';
 let fotosSeleccionadas = [];
 
 // Abrir selector de archivos

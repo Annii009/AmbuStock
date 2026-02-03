@@ -3,8 +3,7 @@ const selectAmbulancia = document.getElementById('ambulancia');
 const btnContinuar = document.getElementById('btnContinuar');
 
 // URL del backend
-// const API_URL = 'http://localhost:5002';
-const API_URL = 'https://charles-uncompanioned-unvalorously.ngrok-free.dev';
+const API_URL = 'http://localhost:5002';
 
 // Cargar ambulancias desde el backend
 async function cargarAmbulancias() {

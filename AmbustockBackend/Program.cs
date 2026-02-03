@@ -81,7 +81,6 @@ builder.Services.AddScoped<IServicioAmbulanciaRepository, ServicioAmbulanciaRepo
 builder.Services.AddScoped<IDetalleCorreoRepository, DetalleCorreoRepository>();
 builder.Services.AddScoped<IRevisionRepository, RevisionRepository>();
 
-
 // Registrar Services
 builder.Services.AddScoped<AmbulanciaService>();
 builder.Services.AddScoped<ZonaService>();
@@ -102,13 +101,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy.WithOrigins(
-                "http://localhost:5500",
-                "http://127.0.0.1:5500",
-                "http://localhost:5501",
                 "http://127.0.0.1:5501",
+                "http://localhost:5501",
+                "http://127.0.0.1:5500",
+                "http://localhost:5500",
                 "http://localhost:3000",
-                "http://127.0.0.1:3000",
-                "https://charles-uncompanioned-unvalorously.ngrok-free.dev" 
+                "http://127.0.0.1:3000"
             )
             .AllowAnyMethod()
             .AllowAnyHeader()
@@ -116,11 +114,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -128,12 +123,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-// COMENTAR ESTO PARA DESARROLLO LOCAL CON HTTP
-// app.UseHttpsRedirection();
-
-app.UseCors("AllowFrontend");
-
-app.UseAuthentication(); // IMPORTANTE: Debe ir ANTES de UseAuthorization
+app.UseCors("AllowFrontend"); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
