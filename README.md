@@ -26,5 +26,7 @@ Sigue estos pasos para poner en marcha el entorno local en pocos minutos.
 
 ### 2. Clonar el repositorio
 ```bash
-git clone [https://github.com/tu-usuario/AmbuStock.git](https://github.com/tu-usuario/AmbuStock.git)
+git clone https://github.com/Annii009/AmbuStock.git
 cd AmbuStock
+
+### 3. 
