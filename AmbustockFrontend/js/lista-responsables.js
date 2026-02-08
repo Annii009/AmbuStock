@@ -36,12 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const usuario = JSON.parse(usuarioData);
             if (usuario.rol !== 'Administrador') {
-                alert('No tienes permisos para acceder a esta página');
                 window.location.href = 'principal.html';
                 return;
             }
         } catch (error) {
-            console.error('Error al verificar permisos:', error);
             window.location.href = 'index.html';
             return;
         }
@@ -184,7 +182,6 @@ window.editarResponsable = async function(idUsuario) {
         modalResponsable.style.display = 'flex';
     } catch (error) {
         console.error('Error al cargar responsable:', error);
-        alert('Error al cargar los datos del responsable');
     }
 };
 
@@ -216,7 +213,6 @@ formResponsable.addEventListener('submit', async (e) => {
         } else {
             // Crear
             if (!datos.password) {
-                alert('La contraseña es obligatoria para nuevos usuarios');
                 return;
             }
             
@@ -234,10 +230,8 @@ formResponsable.addEventListener('submit', async (e) => {
         
         cerrarModal();
         await cargarResponsables();
-        alert(editingResponsable ? 'Responsable actualizado correctamente' : 'Responsable creado correctamente');
     } catch (error) {
         console.error('Error al guardar responsable:', error);
-        alert('Error al guardar el responsable');
     }
 });
 
@@ -264,10 +258,8 @@ btnConfirmarEliminar.addEventListener('click', async () => {
         
         cerrarModalEliminar();
         await cargarResponsables();
-        alert('Responsable eliminado correctamente');
     } catch (error) {
         console.error('Error al eliminar responsable:', error);
-        alert('Error al eliminar el responsable');
     }
 });
 

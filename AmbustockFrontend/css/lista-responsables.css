@@ -399,7 +399,6 @@ h1 {
     background-color: transparent;
     color: #8B2E2E;
     border: 2px solid #8B2E2E;
-    border: none;
     padding: 15px 35px;
     border-radius: 10px;
     font-size: 16px;
@@ -411,7 +410,8 @@ h1 {
 }
 
 .btn-eliminar:hover {
-    background-color: #C0392B;
+    background-color: #8B2E2E;
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
 }
