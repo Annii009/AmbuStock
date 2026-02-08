@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Responsables - Ambustock</title>
+    <link rel="stylesheet" href="/css/lista-responsables.css">
+    <link rel="shortcut icon" href="/imagenes/logo1Rojo.png">
+    <link rel="icon" href="/imagenes/logo1Rojo.png">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" id="backButton">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <img src="/imagenes/logo1Rojo.png" alt="Ambustock" class="logo">
+        </div>
+
+        <h1>LISTA DE RESPONSABLES</h1>
+
+        <div class="search-container">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Buscar por nombre" autocomplete="off">
+        </div>
+
+        <button class="btn-add-responsable" id="btnAddResponsable">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Añadir responsable
+        </button>
+
+        <div class="responsables-list" id="responsablesList">
+        </div>
+    </div>
+
+    <div id="modalResponsable" class="modal-overlay">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <div class="avatar-modal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </div>
+                <h2 class="modal-title" id="modalTitle">Nuevo Responsable</h2>
+            </div>
+
+            <form id="formResponsable">
+                <div class="form-group">
+                    <label for="inputNombreUsuario">Nombre de usuario</label>
+                    <input type="text" id="inputNombreUsuario" class="form-input"
+                        placeholder="Ingrese nombre de usuario" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputRol">Rol</label>
+                    <select id="inputRol" class="form-input" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Operador">Operador</option>
+                        <option value="Técnico de emergencias">Técnico de emergencias</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" id="inputEmail" class="form-input" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="form-group" id="passwordGroup">
+                    <label for="inputPassword">Contraseña</label>
+                    <input type="password" id="inputPassword" class="form-input" placeholder="Ingrese contraseña">
+                </div>
+
+                <input type="hidden" id="inputIdUsuario">
+                <input type="hidden" id="inputIdResponsable">
+
+                <div class="modal-buttons">
+                    <button type="button" id="btnCancelarModal" class="btn-cancelar">Cancelar</button>
+                    <button type="submit" id="btnConfirmarModal" class="btn-confirmar">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalEliminar" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="modal-title">¿ESTÁS SEGURO QUE QUIERES<br>ELIMINAR A <span id="nombreEliminar"></span>?</h2>
+            <p class="modal-subtitle">Esta acción no se puede deshacer</p>
+            <div class="modal-buttons">
+                <button id="btnCancelarEliminar" class="btn-cancelar">Cancelar</button>
+                <button id="btnConfirmarEliminar" class="btn-eliminar">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/js/lista-responsables.js"></script>
+</body>
+
+</html>

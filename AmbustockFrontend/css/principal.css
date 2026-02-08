@@ -249,6 +249,152 @@ body.dark-theme .btn-secondary:hover {
     color: white;
 }
 
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+body.dark-theme .modal-content {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    color: #1a1a1a;
+}
+
+body.dark-theme .modal-title {
+    color: #ffffff;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-cancelar {
+    background-color: #8B2E2E;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 120px;
+}
+
+.btn-cancelar:hover {
+    background-color: #6d1b1b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 46, 46, 0.3);
+}
+
+.btn-cancelar:active {
+    transform: translateY(0);
+}
+
+.btn-confirmar {
+    background-color: transparent;
+    color: #8B2E2E;
+    border: 2px solid #8B2E2E;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 120px;
+}
+
+.btn-confirmar:hover {
+    background-color: #8B2E2E;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 46, 46, 0.3);
+}
+
+.btn-confirmar:active {
+    transform: translateY(0);
+}
+
+body.dark-theme .btn-confirmar {
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+body.dark-theme .btn-confirmar:hover {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+/* Animaciones del modal */
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive para modal */
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 30px 20px;
+        width: 85%;
+    }
+
+    .modal-title {
+        font-size: 18px;
+        margin-bottom: 25px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-cancelar,
+    .btn-confirmar {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
 @media (max-width: 480px) {
     .container {
         padding: 20px;

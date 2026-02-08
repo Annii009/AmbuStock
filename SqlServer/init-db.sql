@@ -1,5 +1,3 @@
-
-
 CREATE DATABASE AmbustockDB;
 GO
 
@@ -142,7 +140,6 @@ ADD CONSTRAINT FK_correo_reposicion FOREIGN KEY (Id_reposicion) REFERENCES Repos
 
 GO
 
-
 -- 1) AMBULANCIA
 INSERT INTO ambulancia (Nombre, Matricula)
 VALUES (N'Ambulancia UVI Movil AM50.2-Z', N'2345-XYZ');
@@ -162,8 +159,7 @@ INSERT INTO zonas (nombre_zona, Id_ambulancia) VALUES
 (N'CAJONES', 1),
 (N'ESTANTERIAS', 1);
 
--- 3) CAJONES (solo para las zonas que los tienen)
--- Zona CAJONES (Id_zona = 11)
+-- 3) CAJONES
 INSERT INTO cajones (Nombre_cajon, Id_zona) VALUES
 (N'ARMARIO SUEROS', 11),
 (N'CAJON 1', 11),
@@ -178,7 +174,6 @@ INSERT INTO cajones (Nombre_cajon, Id_zona) VALUES
 (N'CAJON 11', 11),
 (N'CAJON 12', 11);
 
--- Zona ESTANTERIAS (Id_zona = 12)
 INSERT INTO cajones (Nombre_cajon, Id_zona) VALUES
 (N'ESTANTERIA 1', 12),
 (N'ESTANTERIA 2', 12),
@@ -189,9 +184,7 @@ INSERT INTO cajones (Nombre_cajon, Id_zona) VALUES
 (N'SONDAS', 12),
 (N'KIT DE PARTO', 12);
 
--- 4) MATERIALES
-
--- Zona 1: AMPULARIO MEDICO
+-- 4) MATERIALES - Zona 1: AMPULARIO MEDICO
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Adolonta (Tramadol Hidrocloruro)', 1, 1, NULL),
 (N'Adrenalina (Epinefrina)', 1, 1, NULL),
@@ -509,7 +502,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Venda crepe 7cm', 1, 10, NULL),
 (N'Venda crepe 10cm', 1, 10, NULL);
 
--- Zona 11: CAJONES - ARMARIO SUEROS (Id_cajon = 1)
+-- Zona 11: CAJONES - ARMARIO SUEROS
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Gasas 20x20', 14, 11, 1),
 (N'Compresas 10x20', 8, 11, 1),
@@ -541,13 +534,13 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Tapón via', 2, 11, 1),
 (N'Llave simple', 3, 11, 1);
 
--- Zona 11: CAJONES - CAJON 1 (Id_cajon = 2)
+-- Zona 11: CAJONES - CAJON 1
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Parches adulto DESA', 1, 11, 2),
 (N'Parches pediatrico DESA', 1, 11, 2),
 (N'Gel conductor', 1, 11, 2);
 
--- Zona 11: CAJONES - CAJON 2 (Id_cajon = 3)
+-- Zona 11: CAJONES - CAJON 2
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Guedel pediatrico 3.5', 2, 11, 3),
 (N'Guedel pediatrico 5', 3, 11, 3),
@@ -559,7 +552,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Guedel adulto 10', 2, 11, 3),
 (N'Guedel adulto 12', 3, 11, 3);
 
--- Zona 11: CAJONES - CAJON 3 (ADULTO) (Id_cajon = 4)
+-- Zona 11: CAJONES - CAJON 3 (ADULTO)
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Gafas nasales', 1, 11, 4),
 (N'Mascarilla traqueo', 1, 11, 4),
@@ -567,14 +560,14 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Mascarilla reservorio', 1, 11, 4),
 (N'Mascarilla flujo', 2, 11, 4);
 
--- Zona 11: CAJONES - CAJON 4 (PEDIATRICO) (Id_cajon = 5)
+-- Zona 11: CAJONES - CAJON 4 (PEDIATRICO)
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Mascarilla flujo', 2, 11, 5),
 (N'Gafas nasales', 2, 11, 5),
 (N'Mascarilla reservorio', 2, 11, 5),
 (N'Mascarilla nebulizador', 2, 11, 5);
 
--- Zona 11: CAJONES - CAJON 5 (Id_cajon = 6)
+-- Zona 11: CAJONES - CAJON 5
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Agua bidestilada 10 ml', 2, 11, 6),
 (N'Jeringa 100 ml', 1, 11, 6),
@@ -593,7 +586,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Sonda gastrica 14', 1, 11, 6),
 (N'Sonda gastrica 16', 1, 11, 6);
 
--- Zona 11: CAJONES - CAJON 6 (Id_cajon = 7)
+-- Zona 11: CAJONES - CAJON 6
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Bolsa calor', 3, 11, 7),
 (N'Bolsa frio', 4, 11, 7),
@@ -608,7 +601,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Reflex', 1, 11, 7),
 (N'Nobecutam', 1, 11, 7);
 
--- Zona 11: CAJONES - CAJON 7 (Id_cajon = 8)
+-- Zona 11: CAJONES - CAJON 7
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Filtros', 3, 11, 8),
 (N'Silko gel', 1, 11, 8),
@@ -627,7 +620,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Laringo pediatrico', 1, 11, 8),
 (N'Talla esteril 75x90', 1, 11, 8);
 
--- Zona 11: CAJONES - KIT INTUBACION ADULTO (Id_cajon = 9)
+-- Zona 11: CAJONES - KIT INTUBACION ADULTO
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Jeringa 10 ml', 1, 11, 9),
 (N'Tubo traqueal 6', 1, 11, 9),
@@ -640,7 +633,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Venda crepe 5 cm', 1, 11, 9),
 (N'Fijador 4.8 mm', 1, 11, 9);
 
--- Zona 11: CAJONES - CAJON 10 (Id_cajon = 10)
+-- Zona 11: CAJONES - CAJON 10
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Aguja intravenosa aletas (palomilla) 23G', 3, 11, 10),
 (N'Aguja intravenosa aletas (palomilla) 21G', 3, 11, 10),
@@ -651,7 +644,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Abocat 22', 3, 11, 10),
 (N'Abocat 24', 3, 11, 10);
 
--- Zona 11: CAJONES - CAJON 11 (Id_cajon = 11)
+-- Zona 11: CAJONES - CAJON 11
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Dosi flow', 2, 11, 11),
 (N'Equipo corto', 1, 11, 11),
@@ -667,12 +660,12 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Agujas amarillas', 2, 11, 11),
 (N'Agujas naranjas', 6, 11, 11);
 
--- Zona 11: CAJONES - CAJON 12 (Id_cajon = 12)
+-- Zona 11: CAJONES - CAJON 12
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Suero fisiologico 250ml', 2, 11, 12),
 (N'Quitaesmalte', 1, 11, 12);
 
--- Zona 12: ESTANTERIAS - ESTANTERIA 1 (Id_cajon = 13)
+-- Zona 12: ESTANTERIAS - ESTANTERIA 1
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Quicktrack', 1, 12, 13),
 (N'Intraosea adulto', 1, 12, 13),
@@ -683,19 +676,19 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Trocar toracico', 1, 12, 13),
 (N'Vented Hydrogel neumotorax', 1, 12, 13);
 
--- Zona 12: ESTANTERIAS - ESTANTERIA 2 (Id_cajon = 14)
+-- Zona 12: ESTANTERIAS - ESTANTERIA 2
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Venda algodón grande', 4, 12, 14),
 (N'Vendaje triangular', 4, 12, 14),
 (N'Manta termica', 4, 12, 14);
 
--- Zona 12: ESTANTERIAS - ESTANTERIA 3 (Id_cajon = 15)
+-- Zona 12: ESTANTERIAS - ESTANTERIA 3
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Crepe 10x10', 1, 12, 15),
 (N'Crepe 7x4', 3, 12, 15),
 (N'Crepe 5x4', 3, 12, 15);
 
--- Zona 12: ESTANTERIAS - ESTANTERIA 4 (Id_cajon = 16)
+-- Zona 12: ESTANTERIAS - ESTANTERIA 4
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Venda cohesiva 10x4', 4, 12, 16),
 (N'Venda cohesiva 6x4', 3, 12, 16),
@@ -704,7 +697,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Venda gasa 10x10', 3, 12, 16),
 (N'Venda gasa 5x7', 4, 12, 16);
 
--- Zona 12: ESTANTERIAS - ESTANTERIA 5 (Id_cajon = 17)
+-- Zona 12: ESTANTERIAS - ESTANTERIA 5
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Omnifux 10x10', 1, 12, 17),
 (N'Omnifix 20x10', 1, 12, 17),
@@ -716,7 +709,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Aposito 20x10 GRANDE', 4, 12, 17),
 (N'Aposito 10x10 MEDIANO', 8, 12, 17);
 
--- Zona 12: ESTANTERIAS - MONITOR (Id_cajon = 18)
+-- Zona 12: ESTANTERIAS - MONITOR
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Electrodos adulto', 1, 12, 18),
 (N'Gel', 1, 12, 18),
@@ -725,7 +718,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Electrodos pediatrico DESA', 1, 12, 18),
 (N'Electrodos pediatricos', 1, 12, 18);
 
--- Zona 12: ESTANTERIAS - SONDAS (Id_cajon = 19)
+-- Zona 12: ESTANTERIAS - SONDAS
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Sonda 14', 1, 12, 19),
 (N'Sonda 16', 1, 12, 19),
@@ -737,7 +730,7 @@ INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Jeringa 50ml', 1, 12, 19),
 (N'Alargadera', 1, 12, 19);
 
--- Zona 12: ESTANTERIAS - KIT DE PARTO (Id_cajon = 20)
+-- Zona 12: ESTANTERIAS - KIT DE PARTO
 INSERT INTO materiales (nombre_Producto, cantidad, Id_zona, Id_cajon) VALUES
 (N'Compresas', 3, 12, 20),
 (N'Manta térmica', 1, 12, 20),
@@ -758,25 +751,51 @@ VALUES
 -- 6) RESPONSABLES
 INSERT INTO responsable (Nombre_Responsable, Fecha_Servicio)
 VALUES
-    (N'Juan Pérez', '2026-01-01 08:30:00'),
-    (N'Ana Gómez', '2026-01-01 12:15:00'),
-    (N'Luis Martínez', '2026-01-02 03:45:00');
+    (N'Administrador Sistema', '2026-01-01 08:00:00'),
+    (N'Juan Pérez García', '2026-01-01 08:30:00'),
+    (N'Ana Gómez Ruiz', '2026-01-01 12:15:00'),
+    (N'Luis Martínez López', '2026-01-02 03:45:00'),
+    (N'Carlos Ruiz Hernández', '2026-01-03 09:00:00'),
+    (N'Pilar García Prado', '2026-01-03 14:30:00'),
+    (N'Armando Jiménez Giménez', '2026-01-04 10:15:00'),
+    (N'Pablo Martínez Oriol', '2026-01-04 16:00:00'),
+    (N'José Luis Rodríguez Sancho', '2026-01-05 07:45:00'),
+    (N'Juan Carlos Piedrafita González', '2026-01-05 11:30:00'),
+    (N'Maricarmen Prados Castillo', '2026-01-06 13:00:00'),
+    (N'Rosa Triana Legua', '2026-01-06 18:20:00'),
+    (N'Alejandra Ruiz Picasso', '2026-01-07 08:50:00');
 
--- 7) USUARIOS
-INSERT INTO usuarios (Nombre_Usuario, Rol, email, Password)
+-- 7) USUARIOS (vinculados con responsables) -- CORREGIDO: Id_responsable
+INSERT INTO usuarios (Nombre_Usuario, Rol, email, Password, Id_responsable)
 VALUES
-    (N'admin', N'Administrador', N'admin@ambustock.local', N'Admin123!'),
-    (N'jefe_guardia', N'Supervisor', N'jefe.guardias@ambustock.local', N'Super123!'),
-    (N'operador1', N'Operador', N'operador1@ambustock.local', N'Oper123!');
+    (N'admin', N'Administrador', N'admin@ambustock.local', N'Admin123!', 1),
+    (N'jperez', N'Supervisor', N'juan.perez@ambustock.local', N'Super123!', 2),
+    (N'agomez', N'Operador', N'ana.gomez@ambustock.local', N'Oper123!', 3),
+    (N'lmartinez', N'Técnico de emergencias', N'luis.martinez@ambustock.local', N'Tecnico123!', 4),
+    (N'cruiz', N'Técnico de emergencias', N'carlos.ruiz@ambustock.local', N'Tecnico123!', 5),
+    (N'pgarcia', N'Técnico de emergencias', N'pilar.garcia@ambustock.local', N'Tecnico123!', 6),
+    (N'ajimenez', N'Técnico de emergencias', N'armando.jimenez@ambustock.local', N'Tecnico123!', 7),
+    (N'pmartinez', N'Técnico de emergencias', N'pablo.martinez@ambustock.local', N'Tecnico123!', 8),
+    (N'jlrodriguez', N'Técnico de emergencias', N'joseluis.rodriguez@ambustock.local', N'Tecnico123!', 9),
+    (N'jcpiedrafita', N'Técnico de emergencias', N'juancarlos.piedrafita@ambustock.local', N'Tecnico123!', 10),
+    (N'mprados', N'Técnico de emergencias', N'maricarmen.prados@ambustock.local', N'Tecnico123!', 11),
+    (N'rtriana', N'Técnico de emergencias', N'rosa.triana@ambustock.local', N'Tecnico123!', 12),
+    (N'aruiz', N'Técnico de emergencias', N'alejandra.ruiz@ambustock.local', N'Tecnico123!', 13);
 
--- 8) VINCULAR SERVICIO <-> RESPONSABLE
-UPDATE servicio SET Id_responsable = 1 WHERE Id_servicio = 1;
-UPDATE servicio SET Id_responsable = 2 WHERE Id_servicio = 2;
-UPDATE servicio SET Id_responsable = 3 WHERE Id_servicio = 3;
-
-UPDATE responsable SET Id_servicio = 1 WHERE Id_responsable = 1;
-UPDATE responsable SET Id_servicio = 2 WHERE Id_responsable = 2;
-UPDATE responsable SET Id_servicio = 3 WHERE Id_responsable = 3;
+-- 8) ACTUALIZAR responsables con Id_usuario -- CORREGIDO: Id_usuario e Id_responsable
+UPDATE responsable SET Id_usuario = 1 WHERE Id_responsable = 1;
+UPDATE responsable SET Id_usuario = 2 WHERE Id_responsable = 2;
+UPDATE responsable SET Id_usuario = 3 WHERE Id_responsable = 3;
+UPDATE responsable SET Id_usuario = 4 WHERE Id_responsable = 4;
+UPDATE responsable SET Id_usuario = 5 WHERE Id_responsable = 5;
+UPDATE responsable SET Id_usuario = 6 WHERE Id_responsable = 6;
+UPDATE responsable SET Id_usuario = 7 WHERE Id_responsable = 7;
+UPDATE responsable SET Id_usuario = 8 WHERE Id_responsable = 8;
+UPDATE responsable SET Id_usuario = 9 WHERE Id_responsable = 9;
+UPDATE responsable SET Id_usuario = 10 WHERE Id_responsable = 10;
+UPDATE responsable SET Id_usuario = 11 WHERE Id_responsable = 11;
+UPDATE responsable SET Id_usuario = 12 WHERE Id_responsable = 12;
+UPDATE responsable SET Id_usuario = 13 WHERE Id_responsable = 13;
 
 -- 9) SERVICIO_AMBULANCIA
 INSERT INTO Servicio_Ambulancia (Id_Ambulancia, Id_Servicio)
@@ -827,4 +846,3 @@ UPDATE correo SET Id_reposicion = 2 WHERE Id_Correo = 2;
 UPDATE correo SET Id_reposicion = 3 WHERE Id_Correo = 3;
 
 GO
-

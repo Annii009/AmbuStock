@@ -2,8 +2,10 @@
 const API_URL = 'http://localhost:5002';
 let materialesSeleccionados = [];
 let servicioSeleccionado = null;
+let ambulanciaSeleccionada = null;
 let allMateriales = [];
 let allServicios = [];
+let allAmbulancias = [];
 
 // Elementos del DOM
 const backButton = document.getElementById('backButton');
@@ -13,10 +15,11 @@ const materialAutocomplete = document.getElementById('materialAutocomplete');
 const materialList = document.getElementById('materialList');
 const searchServicio = document.getElementById('searchServicio');
 const servicioAutocomplete = document.getElementById('servicioAutocomplete');
+const selectAmbulancia = document.getElementById('selectAmbulancia');
 const nombreResponsable = document.getElementById('nombreResponsable');
 const btnContinuar = document.getElementById('btnContinuar');
 
-// Cargar materiales y servicios
+// Cargar materiales, servicios y ambulancias
 async function cargarDatos() {
     try {
         const token = localStorage.getItem('token');
@@ -31,10 +34,37 @@ async function cargarDatos() {
         });
         allServicios = await responseServicios.json();
         
+        // Cargar ambulancias
+        const responseAmbulancias = await fetch(`${API_URL}/api/Ambulancia`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        allAmbulancias = await responseAmbulancias.json();
+        cargarAmbulancias();
+        
     } catch (error) {
         console.error('Error al cargar datos:', error);
     }
 }
+
+// Cargar ambulancias en el select
+function cargarAmbulancias() {
+    const opciones = allAmbulancias.map(a => 
+        `<option value="${a.idAmbulancia}">${a.nombre} - ${a.matricula}</option>`
+    ).join('');
+    
+    selectAmbulancia.innerHTML = `<option value="">Selecciona una ambulancia</option>${opciones}`;
+}
+
+// Event listener para el select de ambulancias
+selectAmbulancia.addEventListener('change', () => {
+    const idSeleccionado = parseInt(selectAmbulancia.value);
+    if (idSeleccionado) {
+        ambulanciaSeleccionada = allAmbulancias.find(a => a.idAmbulancia === idSeleccionado);
+    } else {
+        ambulanciaSeleccionada = null;
+    }
+    validarFormulario();
+});
 
 // Autocompletado de materiales
 searchMaterial.addEventListener('input', () => {
@@ -184,16 +214,17 @@ function validarFormulario() {
     const tieneResponsable = nombreResponsable.value.trim().length > 0;
     const tieneServicio = searchServicio.value.trim().length > 0;
     const tieneMateriales = materialesSeleccionados.length > 0;
+    const tieneAmbulancia = ambulanciaSeleccionada !== null;
     
-    btnContinuar.disabled = !(tieneResponsable && tieneServicio && tieneMateriales);
+    btnContinuar.disabled = !(tieneResponsable && tieneServicio && tieneMateriales && tieneAmbulancia);
 }
 
 btnContinuar.addEventListener('click', () => {
-    // Guardar datos para la siguiente pantalla
     localStorage.setItem('reposicionData', JSON.stringify({
         materiales: materialesSeleccionados,
         servicio: searchServicio.value.trim(),
-        responsable: nombreResponsable.value.trim()
+        responsable: nombreResponsable.value.trim(),
+        ambulancia: ambulanciaSeleccionada
     }));
     
     window.location.href = 'sugerencias.html';
