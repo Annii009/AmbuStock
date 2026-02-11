@@ -1,0 +1,194 @@
+// Mixin para glassmorphism
+@mixin glassmorphism($bg: $glass-bg, $blur: $glass-blur) {
+  background: $bg;
+  backdrop-filter: blur($blur) saturate(180%);
+  -webkit-backdrop-filter: blur($blur) saturate(180%);
+  border: 1px solid $glass-border;
+  border-top: 2px solid $glass-border-top;
+  
+  // Fallback para navegadores sin backdrop-filter
+  @supports not (backdrop-filter: blur($blur)) {
+    background: $glass-bg-fallback;
+  }
+}
+
+// Mixin para botones
+@mixin button-base {
+  border: none;
+  border-radius: $border-radius-button;
+  font-family: $font-primary;
+  font-size: 17px;
+  font-weight: $font-semibold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Media queries responsive
+@mixin mobile-small {
+  @media (max-width: 428px) and (max-height: 750px) {
+    @content;
+  }
+}
+
+@mixin mobile-standard {
+  @media (max-width: 428px) and (min-height: 751px) and (max-height: 850px) {
+    @content;
+  }
+}
+
+@mixin mobile-tall {
+  @media (max-width: 428px) and (min-height: 851px) {
+    @content;
+  }
+}
+
+@mixin mobile-tiny {
+  @media (max-width: 375px) and (max-height: 670px) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: 429px) {
+    @content;
+  }
+}
+
+
+// Mixin para inputs
+@mixin input-base {
+  width: 100%;
+  height: $input-height;
+  padding: 0 18px;
+  font-family: $font-primary;
+  font-size: 15px;
+  font-weight: $font-regular;
+  color: $text-dark;
+  background: $input-bg;
+  border: 1px solid $border-gray;
+  border-radius: $border-radius-button;
+  transition: all 0.2s ease;
+  
+  &::placeholder {
+    color: $placeholder-color;
+    font-weight: $font-light;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-red;
+    background: $input-bg;
+    box-shadow: 0 0 0 3px rgba(137, 29, 26, 0.08);
+  }
+  
+  &:disabled {
+    background-color: $input-disabled-bg;
+    cursor: not-allowed;
+  }
+}
+
+// Mixin para animación de loading
+@mixin loading-spinner {
+  &.loading {
+    pointer-events: none;
+    opacity: 0.7;
+    position: relative;
+    
+    &::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 50%;
+      left: 50%;
+      margin-left: -9px;
+      margin-top: -9px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: $white;
+      animation: spinner 0.6s linear infinite;
+    }
+  }
+  
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+// Media query para altura pequeña
+@mixin height-small {
+  @media (max-height: 700px) {
+    @content;
+  }
+}
+
+// Media query para altura grande
+@mixin height-large {
+  @media (min-height: 800px) {
+    @content;
+  }
+}
+
+
+// Mixin para botón secundario
+@mixin button-secondary {
+  background-color: transparent;
+  color: $primary-red;
+  border: $btn-secondary-border solid $primary-red;
+  
+  &:hover:not(:disabled) {
+    background-color: $primary-red;
+    color: $white;
+  }
+  
+  body.dark-theme & {
+    color: $dark-red;
+    border-color: $dark-red;
+    
+    &:hover:not(:disabled) {
+      background-color: $dark-red;
+      color: $white;
+    }
+  }
+}
+
+// Animaciones
+@mixin fadeIn {
+  animation: fadeIn 0.2s ease;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@mixin slideIn {
+  animation: slideIn 0.3s ease;
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
