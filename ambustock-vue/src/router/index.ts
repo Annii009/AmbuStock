@@ -61,12 +61,61 @@ const router = createRouter({
       name: 'mision-cumplida',
       component: () => import('@/views/MisionCumplidaView.vue'),
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/material-gastado',
+      name: 'material-gastado',
+      component: () => import('@/views/MaterialGastadoView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/sugerencias',
+      name: 'sugerencias',
+      component: () => import('@/views/SugerenciasView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/todo-listo',
+      name: 'todo-listo',
+      component: () => import('@/views/TodoListoView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/perfil-admin',
+      name: 'perfil-admin',
+      component: () => import('@/views/PerfilAdminView.vue'),
+      meta: { requiresAuth: true, requiresAdmin: true }
+    },
+    {
+      path: '/perfil',
+      name: 'perfil',
+      component: () => import('@/views/PerfilView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/detalle-reposicion/:id',
+      name: 'detalle-reposicion',
+      component: () => import('@/views/DetalleReposicionView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/historial-reposiciones',
+      name: 'historial-reposiciones',
+      component: () => import('@/views/HistorialReposicionesView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/lista-responsables',
+      name: 'lista-responsables',
+      component: () => import('@/views/ListaResponsablesView.vue'),
+      meta: { requiresAuth: true, requiresAdmin: true }
+    },
+    {
+      path: '/ver-revisiones',
+      name: 'ver-revisiones',
+      component: () => import('@/views/VerRevisionesView.vue'),
+      meta: { requiresAuth: true }
     }
-
-
-
-
-
 
   ]
 })

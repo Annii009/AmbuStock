@@ -129,3 +129,77 @@ $material-faltante-icon-bg: #f8d7da;
 $success-green: #4CAF50;
 $success-gradient-start: #f5f7fa;
 $success-gradient-end: #c3cfe2;
+
+
+
+// Autocomplete
+$autocomplete-bg: #ffffff;
+$autocomplete-border: #e0e0e0;
+$autocomplete-hover: #f5f5f5;
+$autocomplete-active: #e0e0e0;
+
+// Material item
+$material-item-bg: #f9f9f9;
+$material-item-border: #e0e0e0;
+
+// Delete button
+$delete-color: #e74c3c;
+
+// Quantity button
+$qty-btn-border: #ddd;
+$qty-btn-bg: #ffffff;
+$qty-btn-hover: #f5f5f5;
+
+
+// Progress dots
+$dot-inactive: #ddd;
+$dot-active: $primary-red;
+
+// Upload section
+$upload-border: #e0e0e0;
+$upload-bg: #f9f9f9;
+$upload-hover-bg: #f5f5f5;
+
+// Photo remove button
+$photo-remove-bg: rgba(0, 0, 0, 0.7);
+$photo-remove-hover: rgba(231, 76, 60, 0.9);
+
+
+// Avatar
+$avatar-size: 120px;
+$avatar-size-mobile: 100px;
+$avatar-bg: #f0f0f0;
+
+// Menu item
+$menu-item-border: #f5f5f5;
+$menu-item-hover: #f9f9f9;
+$menu-item-active: #f0f0f0;
+
+// Footer
+$footer-text: #999;
+
+
+
+// Estado badges
+$estado-completada-bg: #D5F5E3;
+$estado-completada-text: #27AE60;
+$estado-pendiente-bg: #FCF3CF;
+$estado-pendiente-text: #F39C12;
+
+// Material badges
+$badge-faltante-bg: #FADBD8;
+$badge-faltante-text: #E74C3C;
+$badge-stock-bajo-bg: #FCF3CF;
+$badge-stock-bajo-text: #F39C12;
+
+// Stock values
+$stock-alert: #E74C3C;
+
+
+// Spinner
+$spinner-border: #f0f0f0;
+$spinner-color: $primary-red;
+
+// No results
+$no-results-icon: #ddd;
+$no-results-text: #999;
