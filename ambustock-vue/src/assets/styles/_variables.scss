@@ -1,205 +1,148 @@
-// Colores principales
+
+// PALETA DE COLORES PRINCIPAL - AMBUSTOCK
+
+// Colores primarios (Rojo corporativo)
 $primary-red: #891D1A;
-$primary-red-hover: #6D1715;
-$text-dark: #1A1A1A;
-$text-gray: #4A4A4A;
-$link-red: #891D1A;
+$primary-red-dark: #210706;
+$primary-red-hover: #6d1515;
+
+// Colores secundarios
+$secondary-green: #71B48D;
+$secondary-green-light: rgba(113, 180, 141, 0.3);
+
+// Colores de acento
+$accent-yellow: #FFAE00;
+$accent-yellow-light: rgba(255, 174, 0, 0.3);
+
+// Escala de grises
+$black: #000000;
+$dark-gray: #000500;
+$medium-gray: #5E657B;
+$light-gray: #D0D0D0;
+$lighter-gray: #D9D9D9;
+$off-white: #F8F6F6;
+$near-white: #FFFBFF;
 $white: #FFFFFF;
 
-// Fuentes
-$font-primary: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-display: 'Bebas Neue', sans-serif;
+// Overlays y sombras
+$overlay-dark: rgba(0, 5, 0, 0.6);
+$overlay-light: rgba(0, 0, 0, 0.25);
+$shadow-base: rgba(0, 0, 0, 0.1);
 
-// Pesos de fuente
-$font-light: 300;
-$font-regular: 400;
-$font-semibold: 600;
-$font-bold: 700;
+// COLORES SEMÁNTICOS
 
-// Tamaños base
-$max-width-mobile: 428px;
-$border-radius-card: 30px;
-$border-radius-button: 10px;
+// Estados
+$color-success: $secondary-green;
+$color-warning: $accent-yellow;
+$color-danger: $primary-red;
+$color-info: $medium-gray;
 
-// Sombras
-$shadow-button: 0 4px 12px rgba(137, 29, 26, 0.3);
-$shadow-button-hover: 0 6px 16px rgba(137, 29, 26, 0.4);
-
-// Glassmorphism
-$glass-bg: rgba(255, 255, 255, 0.4);
-$glass-bg-fallback: rgba(255, 255, 255, 0.92);
-$glass-border: rgba(255, 255, 255, 0.6);
-$glass-border-top: rgba(255, 255, 255, 0.8);
-$glass-blur: 40px;
-
-
-// Bordes y estados
-$border-gray: #D0D0D0;
-$input-bg: #FFFFFF;
-$input-disabled-bg: #F5F5F5;
-
-// Estados de error
-$error-bg: rgba(255, 229, 229, 0.95);
-$error-border: #FFB8B8;
-$error-text: #D32F2F;
-
-// Placeholder
-$placeholder-color: #AAAAAA;
-
-// Botones sociales
-$social-btn-bg: #5F6368;
-$social-btn-hover: #4A4D52;
-
-// Tamaños
-$input-height: 54px;
-$input-height-small: 50px;
-$input-height-large: 58px;
-$social-btn-size: 56px;
-$social-btn-size-small: 50px;
-
-
-
-// Dark theme colors
-$dark-bg: #1a1a1a;
-$dark-card-bg: #2d2d2d;
-$dark-hover-bg: #3d3d3d;
-$dark-text: #ffffff;
-$dark-text-secondary: #aaa;
-$dark-red: #ff6b6b;
-
-// Menu y dropdown
-$menu-dot-size: 5px;
-$dropdown-bg: #ffffff;
-$dropdown-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-$dropdown-shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.5);
-
-// Modal
-$modal-overlay-bg: rgba(0, 0, 0, 0.5);
-$modal-bg: #ffffff;
-$modal-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-
-// Botón secundario
-$btn-secondary-border: 2px;
-
-
-// Select custom
-$select-bg: #ffffff;
-$select-border: #ddd;
-$select-hover-bg: #f5f5f5;
-$select-checked-bg: #ffe5e5;
-
-// Progress bar
-$progress-inactive: #d0d0d0;
-$progress-active: $primary-red;
-
-// Disabled states
-$btn-disabled-bg: #c3918e;
-
-
-// Progress bar fill
-$progress-bar-fill: $primary-red;
-$progress-bar-bg: #e0e0e0;
-
-// Zona items
-$zona-completed-bg: $primary-red;
-$zona-check-bg: #71B48D;
-
-// Modal
-$modal-max-height: 90vh;
-
-// Quantity controls
-$quantity-btn-size: 32px;
-$quantity-border: #ddd;
-
-// Green accent
-$green-accent: #71B48D;
-
-
-// Alert box
-$alert-bg: #f8d7da;
-$alert-border: #c9696f;
-$alert-icon-bg: $primary-red;
-
-// Material faltante
-$material-faltante-bg: #f8d7da;
-$material-faltante-icon-bg: #f8d7da;
-
-
-// Success colors
-$success-green: #4CAF50;
-$success-gradient-start: #f5f7fa;
-$success-gradient-end: #c3cfe2;
-
-
-
-// Autocomplete
-$autocomplete-bg: #ffffff;
-$autocomplete-border: #e0e0e0;
-$autocomplete-hover: #f5f5f5;
-$autocomplete-active: #e0e0e0;
-
-// Material item
-$material-item-bg: #f9f9f9;
-$material-item-border: #e0e0e0;
-
-// Delete button
-$delete-color: #e74c3c;
-
-// Quantity button
-$qty-btn-border: #ddd;
-$qty-btn-bg: #ffffff;
-$qty-btn-hover: #f5f5f5;
-
-
-// Progress dots
-$dot-inactive: #ddd;
-$dot-active: $primary-red;
-
-// Upload section
-$upload-border: #e0e0e0;
-$upload-bg: #f9f9f9;
-$upload-hover-bg: #f5f5f5;
-
-// Photo remove button
-$photo-remove-bg: rgba(0, 0, 0, 0.7);
-$photo-remove-hover: rgba(231, 76, 60, 0.9);
-
-
-// Avatar
-$avatar-size: 120px;
-$avatar-size-mobile: 100px;
-$avatar-bg: #f0f0f0;
-
-// Menu item
-$menu-item-border: #f5f5f5;
-$menu-item-hover: #f9f9f9;
-$menu-item-active: #f0f0f0;
-
-// Footer
-$footer-text: #999;
-
-
-
-// Estado badges
+// Backgrounds para badges de estado
 $estado-completada-bg: #D5F5E3;
 $estado-completada-text: #27AE60;
 $estado-pendiente-bg: #FCF3CF;
 $estado-pendiente-text: #F39C12;
+$estado-urgente-bg: #FADBD8;
+$estado-urgente-text: #E74C3C;
 
-// Material badges
+// Backgrounds para badges de material
 $badge-faltante-bg: #FADBD8;
 $badge-faltante-text: #E74C3C;
 $badge-stock-bajo-bg: #FCF3CF;
 $badge-stock-bajo-text: #F39C12;
 
-// Stock values
-$stock-alert: #E74C3C;
+// TEXTOS
 
+$text-dark: $black;
+$text-gray: $medium-gray;
+$text-light: $light-gray;
+$text-white: $white;
+
+// BACKGROUNDS
+
+$bg-primary: $white;
+$bg-secondary: $off-white;
+$bg-tertiary: $near-white;
+$bg-dark: $dark-gray;
+
+// COMPONENTES
+
+// Botones
+$button-primary-bg: $primary-red;
+$button-primary-hover: $primary-red-hover;
+$button-secondary-border: $primary-red;
+
+// Cards y bordes
+$card-border: $lighter-gray;
+$input-border: $light-gray;
+$divider: $light-gray;
+
+// Menu items
+$menu-item-border: $lighter-gray;
+$menu-item-hover: $near-white;
+$menu-item-active: $off-white;
+
+// Modal
+$modal-overlay-bg: $overlay-dark;
+
+// Avatar
+$avatar-bg: $lighter-gray;
+
+// Footer
+$footer-text: $medium-gray;
 
 // Spinner
-$spinner-border: #f0f0f0;
+$spinner-border: $lighter-gray;
 $spinner-color: $primary-red;
 
 // No results
-$no-results-icon: #ddd;
-$no-results-text: #999;
+$no-results-icon: $lighter-gray;
+$no-results-text: $medium-gray;
+
+// Stock alert
+$stock-alert: #E74C3C;
+
+// TIPOGRAFÍA
+
+$font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$font-regular: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
+
+// TAMAÑOS Y ESPACIADOS
+// Avatar sizes
+$avatar-size: 120px;
+$avatar-size-mobile: 100px;
+
+// Espaciados comunes
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+// Border radius
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 20px;
+$radius-round: 50%;
+
+// Sombras
+$shadow-sm: 0 1px 3px $shadow-base;
+$shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+$shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.15);
+
+// BREAKPOINTS
+
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// TRANSICIONES
+
+$transition-fast: 0.15s ease;
+$transition-base: 0.3s ease;
+$transition-slow: 0.5s ease;

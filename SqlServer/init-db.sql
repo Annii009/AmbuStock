@@ -768,19 +768,20 @@ VALUES
 -- 7) USUARIOS (vinculados con responsables) -- CORREGIDO: Id_responsable
 INSERT INTO usuarios (Nombre_Usuario, Rol, email, Password, Id_responsable)
 VALUES
-    (N'admin', N'Administrador', N'admin@ambustock.local', N'Admin123!', 1),
-    (N'jperez', N'Supervisor', N'juan.perez@ambustock.local', N'Super123!', 2),
-    (N'agomez', N'Operador', N'ana.gomez@ambustock.local', N'Oper123!', 3),
-    (N'lmartinez', N'Técnico de emergencias', N'luis.martinez@ambustock.local', N'Tecnico123!', 4),
-    (N'cruiz', N'Técnico de emergencias', N'carlos.ruiz@ambustock.local', N'Tecnico123!', 5),
-    (N'pgarcia', N'Técnico de emergencias', N'pilar.garcia@ambustock.local', N'Tecnico123!', 6),
-    (N'ajimenez', N'Técnico de emergencias', N'armando.jimenez@ambustock.local', N'Tecnico123!', 7),
-    (N'pmartinez', N'Técnico de emergencias', N'pablo.martinez@ambustock.local', N'Tecnico123!', 8),
-    (N'jlrodriguez', N'Técnico de emergencias', N'joseluis.rodriguez@ambustock.local', N'Tecnico123!', 9),
-    (N'jcpiedrafita', N'Técnico de emergencias', N'juancarlos.piedrafita@ambustock.local', N'Tecnico123!', 10),
-    (N'mprados', N'Técnico de emergencias', N'maricarmen.prados@ambustock.local', N'Tecnico123!', 11),
-    (N'rtriana', N'Técnico de emergencias', N'rosa.triana@ambustock.local', N'Tecnico123!', 12),
-    (N'aruiz', N'Técnico de emergencias', N'alejandra.ruiz@ambustock.local', N'Tecnico123!', 13);
+    (N'admin', N'Administrador', N'a28308@gmail.com', N'Admin123!', 1),
+    (N'admin', N'Administrador', N'admin@ambustock.local', N'Admin123!', 2),
+    (N'jperez', N'Socorrista', N'juan.perez@ambustock.local', N'Super123!', 3),
+    (N'agomez', N'Socorrista', N'ana.gomez@ambustock.local', N'Oper123!', 4),
+    (N'lmartinez', N'Técnico de emergencias', N'luis.martinez@ambustock.local', N'Tecnico123!', 5),
+    (N'cruiz', N'Técnico de emergencias', N'carlos.ruiz@ambustock.local', N'Tecnico123!', 6),
+    (N'pgarcia', N'Socorrista', N'pilar.garcia@ambustock.local', N'Tecnico123!', 7),
+    (N'ajimenez', N'Técnico de emergencias', N'armando.jimenez@ambustock.local', N'Tecnico123!', 8),
+    (N'pmartinez', N'Técnico de emergencias', N'pablo.martinez@ambustock.local', N'Tecnico123!', 9),
+    (N'jlrodriguez', N'Socorrista', N'joseluis.rodriguez@ambustock.local', N'Tecnico123!', 10),
+    (N'jcpiedrafita', N'Técnico de emergencias', N'juancarlos.piedrafita@ambustock.local', N'Tecnico123!', 11),
+    (N'mprados', N'Socorrista', N'maricarmen.prados@ambustock.local', N'Tecnico123!', 12),
+    (N'rtriana', N'Médico', N'rosa.triana@ambustock.local', N'Tecnico123!', 13),
+    (N'aruiz', N'Socorrista', N'alejandra.ruiz@ambustock.local', N'Tecnico123!', 14);
 
 -- 8) ACTUALIZAR responsables con Id_usuario -- CORREGIDO: Id_usuario e Id_responsable
 UPDATE responsable SET Id_usuario = 1 WHERE Id_responsable = 1;
@@ -796,6 +797,7 @@ UPDATE responsable SET Id_usuario = 10 WHERE Id_responsable = 10;
 UPDATE responsable SET Id_usuario = 11 WHERE Id_responsable = 11;
 UPDATE responsable SET Id_usuario = 12 WHERE Id_responsable = 12;
 UPDATE responsable SET Id_usuario = 13 WHERE Id_responsable = 13;
+UPDATE responsable SET Id_usuario = 14 WHERE Id_responsable = 14;
 
 -- 9) SERVICIO_AMBULANCIA
 INSERT INTO Servicio_Ambulancia (Id_Ambulancia, Id_Servicio)

@@ -1,4 +1,6 @@
+using AmbustockBackend.Models;
 using AmbustockBackend.Repositories;
+using AmbustockBackend.Service;
 using AmbustockBackend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +9,11 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
+
+builder.Services.Configure<EmailSettings>
+(builder.Configuration.GetSection("EmailSettings"));
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -95,6 +102,7 @@ builder.Services.AddScoped<ServicioAmbulanciaService>();
 builder.Services.AddScoped<DetalleCorreoService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<RevisionService>();
+builder.Services.AddScoped<IEmailService, EmailService>(); 
 
 builder.Services.AddCors(options =>
 {

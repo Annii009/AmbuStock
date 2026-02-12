@@ -159,6 +159,39 @@ namespace AmbustockBackend.Repositories
             await command.ExecuteNonQueryAsync();
         }
 
+
+        public async Task<IEnumerable<Usuarios>> GetByRolAsync(string rol)
+        {
+            var usuarios = new List<Usuarios>();
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            var command = new SqlCommand(
+                @"SELECT Id_usuario, Nombre_Usuario, Rol, Email, Password, Id_Responsable, Id_Correo
+          FROM usuarios
+          WHERE Rol = @Rol",
+                connection);
+            command.Parameters.AddWithValue("@Rol", rol);
+
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                usuarios.Add(new Usuarios
+                {
+                    IdUsuario = reader.GetInt32(reader.GetOrdinal("Id_usuario")),
+                    NombreUsuario = reader.GetString(reader.GetOrdinal("Nombre_Usuario")),
+                    Rol = reader.IsDBNull(reader.GetOrdinal("Rol")) ? null : reader.GetString(reader.GetOrdinal("Rol")),
+                    Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString(reader.GetOrdinal("Email")),
+                    Password = reader.IsDBNull(reader.GetOrdinal("Password")) ? null : reader.GetString(reader.GetOrdinal("Password")),
+                    IdResponsable = reader.IsDBNull(reader.GetOrdinal("Id_Responsable")) ? null : reader.GetInt32(reader.GetOrdinal("Id_Responsable")),
+                    IdCorreo = reader.IsDBNull(reader.GetOrdinal("Id_Correo")) ? null : reader.GetInt32(reader.GetOrdinal("Id_Correo"))
+                });
+            }
+            return usuarios;
+        }
+
+
         private Usuarios MapToUsuario(SqlDataReader r)
         {
             return new Usuarios

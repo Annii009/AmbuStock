@@ -1,16 +1,24 @@
 using AmbustockBackend.Repositories;
 using AmbustockBackend.Dtos;
 using AmbustockBackend.Models;
+using AmbustockBackend.Service;
 
-namespace AmbustockBackend.Services
+namespace AmbustockBackend.Service
 {
     public class ReposicionService
     {
         private readonly IReposicionRepository _repository;
+        private readonly IEmailService _emailService;
+        private readonly ILogger<ReposicionService> _logger;
 
-        public ReposicionService(IReposicionRepository repository)
+        public ReposicionService(
+            IReposicionRepository repository,
+            IEmailService emailService,
+            ILogger<ReposicionService> logger)
         {
             _repository = repository;
+            _emailService = emailService;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<ReposicionDto>> GetAllAsync()
@@ -72,6 +80,16 @@ namespace AmbustockBackend.Services
             };
 
             var created = await _repository.AddAsync(reposicion);
+
+            // 👇 NUEVO: Enviar email al admin
+            try
+            {
+                await _emailService.EnviarCorreoReposicionCompletadaAsync(created);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al enviar email después de crear reposición");
+            }
 
             return new ReposicionDto
             {
