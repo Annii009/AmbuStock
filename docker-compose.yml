@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -11,7 +13,7 @@ services:
       - "8308:1433"
     volumes:
       - sqlserver_data:/var/opt/mssql
-      - ./SqlServer:/sql-scripts:ro
+      - ./AmbustockBackend/SqlServer:/sql-scripts:ro
     healthcheck:
       test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'P@ssw0rd2025!' -C -Q 'SELECT 1' || exit 1
       interval: 10s
@@ -26,7 +28,7 @@ services:
     platform: linux/amd64
     container_name: ambustock-init-db
     volumes:
-      - ./SqlServer:/sql-scripts:ro
+      - ./AmbustockBackend/SqlServer:/sql-scripts:ro
     user: root
     entrypoint: /bin/bash
     command: >
@@ -44,8 +46,8 @@ services:
 
   backend:
     build:
-      context: .
-      dockerfile: AmbustockBackend/Dockerfile
+      context: ./AmbustockBackend
+      dockerfile: Dockerfile
     container_name: ambustock-backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -62,11 +64,16 @@ services:
 
   frontend:
     build:
-      context: .
-      dockerfile: AmbustockFrontend/Dockerfile
+      context: ./AmbustockFrontend
+      dockerfile: Dockerfile
     container_name: ambustock-frontend
+    environment:
+      - VITE_API_URL=http://localhost:5002
     ports:
-      - "5501:5501"
+      - "5173:5173"
+    volumes:
+      - ./AmbustockFrontend:/app
+      - /app/node_modules
     depends_on:
       - backend
     networks:
