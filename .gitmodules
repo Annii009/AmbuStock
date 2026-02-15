@@ -1,0 +1,6 @@
+[submodule "AmbustockBackend"]
+	path = AmbustockBackend
+	url = https://github.com/Annii009/AmbustockBackend.git
+[submodule "AmbustockFrontend"]
+	path = AmbustockFrontend
+	url = https://github.com/Annii009/AmbustockFrontend.git
