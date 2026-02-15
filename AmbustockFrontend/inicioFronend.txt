@@ -1,5 +1,0 @@
-# comandos para intalar e iniciar el front #
-
-npm install --save-dev http-server
-
-npm start
