@@ -38,4 +38,8 @@ docker compose build
 docker compose up
 ```
 
-
+### para cuando la base de datos se queda pillada
+```bash
+docker compose down -v
+docker compose up --build
+```
