@@ -20,11 +20,11 @@ El proyecto está totalmente **dockerizado**, utilizando una arquitectura de mic
 
 Sigue estos pasos para poner en marcha el entorno local en pocos minutos.
 
-### 1. Requisitos previos
+### Requisitos previos
 * Tener instalado [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 * Git instalado en tu sistema.
 
-### 2. Clonar el repositorio
+### Clonar el repositorio
 ### Importante clonarlo con los submodules
 ```bash
 git clone --recurse-submodules https://github.com/Annii009/AmbuStock.git
@@ -32,14 +32,17 @@ cd AmbuStock
 
 ```
 
-### 3. Inicializar la página web
+### Inicializar la página web
 ```bash
 docker compose build
 docker compose up
 ```
 
-### para cuando la base de datos se queda pillada
+### Para cuando la base de datos se queda pillada
 ```bash
 docker compose down -v
 docker compose up --build
 ```
+
+### Cosas a tener en cuenta
+La página web tiene dos formatos, el de móvil y el de ordenador. El formato móvil esta pensado para los trabajadores o voluntarios que hacen la revisión y la reposición de la ambulancia. Y la versión ordenador esta pensada para aquellos trabajadores que son administradores o encargados del material.
