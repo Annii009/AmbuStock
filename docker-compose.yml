@@ -53,6 +53,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__CadenaConexionAmbustock=Server=sqlserver,1433;Database=AmbustockDB;User Id=sa;Password=P@ssw0rd2025!;TrustServerCertificate=True;Encrypt=False
+      - Cloudinary__CloudName=dzqa5svc5
+      - Cloudinary__ApiKey=153319768532816
+      - Cloudinary__ApiSecret=-fLjhz-Moflgdv8_EIxsjOLoByA
     ports:
       - "5002:8080"
     depends_on:
