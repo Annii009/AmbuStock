@@ -80,3 +80,16 @@ logs/
 *.bak
 *.swp
 *~
+
+
+# Coverlet is a free, cross platform Code Coverage Tool
+coverage*.json
+coverage*.xml
+coverage*.info
+
+
+# AmbuStock Tests - resultados y cobertura
+AmbuStock.Tests/coverage/
+AmbuStock.Tests/TestResults/
+TestResults/
+
