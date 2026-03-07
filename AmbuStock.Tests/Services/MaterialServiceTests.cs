@@ -10,22 +10,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace AmbuStock.Tests.Services
 {
-    /// <summary>
-    /// Tests unitarios para MaterialService.
-    ///
-    /// Refactorización SOLID aplicada (D - Dependency Inversion):
-    ///   Antes: MaterialService(IMaterialRepository, CloudinaryService)
-    ///   Después: MaterialService(IMaterialRepository, ICloudinaryService)
-    ///   → Moq puede mockear ICloudinaryService sin conectarse a Cloudinary real.
-    ///   → Los tests siguen pasando sin cambiar ninguna lógica del service.
-    ///
-    /// Técnicas aplicadas:
-    ///   - Particiones equivalentes (PE): datos válidos / inválidos / límite
-    ///   - Valores límite (VL): id=0, id negativo, cantidad=0, publicId null/vacío
-    ///   - Cobertura de ramas true/false en cada condicional
-    ///
-    /// Convención de nombres: Metodo_Escenario_ResultadoEsperado
-    /// </summary>
     public class MaterialServiceTests
     {
         private readonly Mock<IMaterialRepository> _repoMock;
@@ -39,11 +23,6 @@ namespace AmbuStock.Tests.Services
             _sut            = new MaterialService(_repoMock.Object, _cloudinaryMock.Object);
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // GetByIdAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>PE válida — id existente → devuelve DTO. Rama TRUE: material != null.</summary>
         [Fact]
         public async Task GetByIdAsync_MaterialExiste_DevuelveDto()
         {
@@ -58,7 +37,6 @@ namespace AmbuStock.Tests.Services
             resultado.Cantidad.Should().Be(10);
         }
 
-        /// <summary>PE inválida — id inexistente → lanza excepción. Rama FALSE: null → throw.</summary>
         [Fact]
         public async Task GetByIdAsync_MaterialNoExiste_LanzaExcepcion()
         {
@@ -69,7 +47,6 @@ namespace AmbuStock.Tests.Services
             await accion.Should().ThrowAsync<Exception>().WithMessage("*999*");
         }
 
-        /// <summary>Valores límite: id = 0, -1, -100 → lanza excepción.</summary>
         [Theory]
         [InlineData(0)]
         [InlineData(-1)]
@@ -83,11 +60,6 @@ namespace AmbuStock.Tests.Services
             await accion.Should().ThrowAsync<Exception>();
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // GetAllAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>PE válida — hay materiales → lista completa.</summary>
         [Fact]
         public async Task GetAllAsync_HayMateriales_DevuelveListaCompleta()
         {
@@ -104,7 +76,6 @@ namespace AmbuStock.Tests.Services
             resultado.Should().HaveCount(3);
         }
 
-        /// <summary>Valor límite — repositorio vacío → lista vacía, no null.</summary>
         [Fact]
         public async Task GetAllAsync_SinMateriales_DevuelveListaVacia()
         {
@@ -115,11 +86,6 @@ namespace AmbuStock.Tests.Services
             resultado.Should().NotBeNull().And.BeEmpty();
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // CreateAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>PE válida — DTO con cajón → crea y devuelve DTO correcto.</summary>
         [Fact]
         public async Task CreateAsync_DtoValidoConCajon_DevuelveDtoCreado()
         {
@@ -135,7 +101,6 @@ namespace AmbuStock.Tests.Services
             _repoMock.Verify(r => r.AddAsync(It.IsAny<Materiales>()), Times.Once);
         }
 
-        /// <summary>PE válida — sin cajón → NombreCajon es null.</summary>
         [Fact]
         public async Task CreateAsync_DtoSinCajon_NombreCajonEsNull()
         {
@@ -149,7 +114,6 @@ namespace AmbuStock.Tests.Services
             resultado.NombreCajon.Should().BeNull();
         }
 
-        /// <summary>Valor límite — cantidad = 0 (frontera inferior válida).</summary>
         [Fact]
         public async Task CreateAsync_CantidadCero_CreaCorrectamente()
         {
@@ -162,14 +126,6 @@ namespace AmbuStock.Tests.Services
             resultado.Cantidad.Should().Be(0);
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // UpdateAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>
-        /// PE válida — IdZona y IdCajon tienen valor → se actualizan.
-        /// Rama TRUE: dto.IdZona.HasValue y dto.IdCajon.HasValue.
-        /// </summary>
         [Fact]
         public async Task UpdateAsync_ConNuevaZonaYCajon_ActualizaAmbos()
         {
@@ -184,10 +140,6 @@ namespace AmbuStock.Tests.Services
             resultado.IdCajon.Should().Be(3);
         }
 
-        /// <summary>
-        /// PE válida — IdZona y IdCajon son null → valores originales intactos.
-        /// Rama FALSE: dto.IdZona/IdCajon no tienen valor.
-        /// </summary>
         [Fact]
         public async Task UpdateAsync_SinNuevaZonaNiCajon_MantieneValoresOriginales()
         {
@@ -208,7 +160,6 @@ namespace AmbuStock.Tests.Services
             resultado.IdCajon.Should().Be(7);
         }
 
-        /// <summary>PE inválida — material no existe → lanza excepción.</summary>
         [Fact]
         public async Task UpdateAsync_MaterialNoExiste_LanzaExcepcion()
         {
@@ -219,14 +170,6 @@ namespace AmbuStock.Tests.Services
             await accion.Should().ThrowAsync<Exception>().WithMessage("*999*");
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // DeleteAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>
-        /// Rama TRUE: tiene foto → elimina de Cloudinary y borra el registro.
-        /// SOLID: posible gracias a que MaterialService depende de ICloudinaryService.
-        /// </summary>
         [Fact]
         public async Task DeleteAsync_MaterialConFoto_EliminaFotoYRegistro()
         {
@@ -240,7 +183,6 @@ namespace AmbuStock.Tests.Services
             _repoMock.Verify(r => r.DeleteAsync(1), Times.Once);
         }
 
-        /// <summary>Rama FALSE: sin foto → NO llama a Cloudinary, sí borra registro.</summary>
         [Fact]
         public async Task DeleteAsync_MaterialSinFoto_SaltaCloudinaryYBorraRegistro()
         {
@@ -253,11 +195,6 @@ namespace AmbuStock.Tests.Services
             _repoMock.Verify(r => r.DeleteAsync(1), Times.Once);
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // EliminarFotoAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>Rama TRUE: publicId no vacío → elimina en Cloudinary y limpia en BD.</summary>
         [Fact]
         public async Task EliminarFotoAsync_TieneFoto_EliminaDeCloudinaryYBD()
         {
@@ -271,7 +208,6 @@ namespace AmbuStock.Tests.Services
             _repoMock.Verify(r => r.UpdateFotoAsync(5, null!, null!), Times.Once);
         }
 
-        /// <summary>Rama FALSE + VL: publicId null o vacío → NO llama a Cloudinary.</summary>
         [Theory]
         [InlineData(null)]
         [InlineData("")]
@@ -285,11 +221,6 @@ namespace AmbuStock.Tests.Services
             _cloudinaryMock.Verify(c => c.EliminarImagenAsync(It.IsAny<string>()), Times.Never);
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // SubirFotoAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>Rama TRUE: material ya tenía foto → la elimina antes de subir la nueva.</summary>
         [Fact]
         public async Task SubirFotoAsync_MaterialConFotoPrevia_EliminaAntesDeSub()
         {
@@ -307,7 +238,6 @@ namespace AmbuStock.Tests.Services
             resultado.FotoUrl.Should().Be("https://new.jpg");
         }
 
-        /// <summary>Rama FALSE: sin foto previa → sube directamente sin llamar EliminarImagenAsync.</summary>
         [Fact]
         public async Task SubirFotoAsync_MaterialSinFotoPrevia_SubeDirectamente()
         {
@@ -323,11 +253,6 @@ namespace AmbuStock.Tests.Services
             _cloudinaryMock.Verify(c => c.SubirImagenAsync(It.IsAny<IFormFile>(), It.IsAny<string>()), Times.Once);
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // GetByCantidadBajaAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>Valor límite — umbral = 1 → solo materiales con cantidad 0.</summary>
         [Fact]
         public async Task GetByCantidadBajaAsync_UmbralUno_DevuelveCantidadCero()
         {
@@ -340,7 +265,6 @@ namespace AmbuStock.Tests.Services
             resultado.First().Cantidad.Should().Be(0);
         }
 
-        /// <summary>PE válida — varios umbrales → el repo recibe exactamente ese valor.</summary>
         [Theory]
         [InlineData(5)]
         [InlineData(10)]
@@ -354,11 +278,6 @@ namespace AmbuStock.Tests.Services
             _repoMock.Verify(r => r.GetByCantidadBajaAsync(umbral), Times.Once);
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // Mapeo ToDto
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>Material con Zona y Cajón → nombres mapeados correctamente.</summary>
         [Fact]
         public async Task GetByIdAsync_MaterialConZonaYCajon_MapeaNombresCorrectamente()
         {
@@ -372,8 +291,7 @@ namespace AmbuStock.Tests.Services
             dto.NombreZona.Should().Be("Zona Trauma");
             dto.NombreCajon.Should().Be("Cajón Rojo");
         }
-
-        /// <summary>Material sin cajón → NombreCajon null, sin NullReferenceException.</summary>
+        
         [Fact]
         public async Task GetByIdAsync_MaterialSinCajon_NombreCajonEsNull()
         {

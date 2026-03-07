@@ -5,7 +5,6 @@ namespace AmbuStock.Tests.Helpers
 {
     public static class TestDataBuilder
     {
-        // ─── Materiales ───────────────────────────────────────────────────────────
 
         public static Materiales CrearMaterial(
             int id = 1,
@@ -62,7 +61,6 @@ namespace AmbuStock.Tests.Helpers
             };
         }
 
-        // ─── Ambulancia ───────────────────────────────────────────────────────────
 
         public static Ambulancia CrearAmbulancia(
             int id = 1,
@@ -77,7 +75,6 @@ namespace AmbuStock.Tests.Helpers
             };
         }
 
-        // ─── Zonas / Cajones ──────────────────────────────────────────────────────
 
         public static Zonas CrearZona(int id = 1, string nombre = "Zona A", int idAmbulancia = 1)
             => new Zonas { IdZona = id, NombreZona = nombre, IdAmbulancia = idAmbulancia };
@@ -85,7 +82,6 @@ namespace AmbuStock.Tests.Helpers
         public static Cajones CrearCajon(int id = 1, string nombre = "Cajón 1", int idZona = 1)
             => new Cajones { IdCajon = id, NombreCajon = nombre, IdZona = idZona };
 
-        // ─── Revisiones ───────────────────────────────────────────────────────────
 
         public static Revision CrearRevision(
             int id = 1,
@@ -124,7 +120,6 @@ namespace AmbuStock.Tests.Helpers
             };
         }
 
-        /// <summary>Zona con materiales donde CantidadRevisada == Cantidad (todos correctos).</summary>
         public static ZonaGuardarDto CrearZonaConMaterialesCorrectos(int cantidad = 5)
         {
             return new ZonaGuardarDto
@@ -140,7 +135,6 @@ namespace AmbuStock.Tests.Helpers
             };
         }
 
-        /// <summary>Zona con un material correcto y uno incompleto.</summary>
         public static ZonaGuardarDto CrearZonaConMaterialesIncompletos()
         {
             return new ZonaGuardarDto

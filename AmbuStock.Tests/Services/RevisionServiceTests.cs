@@ -34,14 +34,6 @@ namespace AmbuStock.Tests.Services
                 _revisionRepoMock.Object);
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // GuardarRevisionAsync — Estado: "completada" vs "pendiente"
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>
-        /// PE válida — todos los materiales revisados == cantidad esperada.
-        /// Rama TRUE: revisados == total → Estado = "completada".
-        /// </summary>
         [Fact]
         public async Task GuardarRevisionAsync_TodosLosMaterilesCorrectos_EstadoCompletada()
         {
@@ -64,10 +56,6 @@ namespace AmbuStock.Tests.Services
             revisionGuardada.Total_Materiales.Should().Be(revisionGuardada.Materiales_Revisados);
         }
 
-        /// <summary>
-        /// PE inválida — algún material con cantidad revisada diferente.
-        /// Rama FALSE: revisados &lt; total → Estado = "pendiente".
-        /// </summary>
         [Fact]
         public async Task GuardarRevisionAsync_AlgunMaterialIncorrecto_EstadoPendiente()
         {
@@ -90,9 +78,6 @@ namespace AmbuStock.Tests.Services
             revisionGuardada.Materiales_Revisados.Should().BeLessThan(revisionGuardada.Total_Materiales);
         }
 
-        /// <summary>
-        /// Valor límite — sin zonas → totales = 0, estado "completada" (0 == 0).
-        /// </summary>
         [Fact]
         public async Task GuardarRevisionAsync_SinZonas_TotalesEnCeroYEstadoCompletada()
         {
@@ -113,9 +98,6 @@ namespace AmbuStock.Tests.Services
             revisionGuardada.Estado.Should().Be("completada");
         }
 
-        /// <summary>
-        /// Materiales en cajones también se suman al total.
-        /// </summary>
         [Fact]
         public async Task GuardarRevisionAsync_MaterialesEnCajones_SeSumanAlTotal()
         {
@@ -127,7 +109,6 @@ namespace AmbuStock.Tests.Services
                              .Callback<Revision>(r => revisionGuardada = r)
                              .ReturnsAsync((Revision r) => r);
 
-            // 1 material directo + cajón con 2 materiales = total 3
             var dto = TestDataBuilder.CrearGuardarRevisionDto(zonas: new List<ZonaGuardarDto>
             {
                 new ZonaGuardarDto
@@ -159,9 +140,6 @@ namespace AmbuStock.Tests.Services
             revisionGuardada.Estado.Should().Be("pendiente");
         }
 
-        /// <summary>
-        /// PE límite — zonas con Materiales null y Cajones null → no lanza excepción.
-        /// </summary>
         [Fact]
         public async Task GuardarRevisionAsync_ZonasConNulos_NoLanzaExcepcion()
         {
@@ -185,10 +163,6 @@ namespace AmbuStock.Tests.Services
             await accion.Should().NotThrowAsync();
         }
 
-        /// <summary>
-        /// PE inválida — ambulancia no existe → lanza excepción.
-        /// Rama FALSE: ambulancia == null.
-        /// </summary>
         [Fact]
         public async Task GuardarRevisionAsync_AmbulanciaNoExiste_LanzaExcepcion()
         {
@@ -202,11 +176,6 @@ namespace AmbuStock.Tests.Services
             await accion.Should().ThrowAsync<Exception>().WithMessage("*99*");
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // GetRevisionPorAmbulanciaAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>PE válida — ambulancia existe → devuelve DTO con datos correctos.</summary>
         [Fact]
         public async Task GetRevisionPorAmbulanciaAsync_AmbulanciaExiste_DevuelveDtoCompleto()
         {
@@ -222,7 +191,6 @@ namespace AmbuStock.Tests.Services
             resultado.Zonas.Should().BeEmpty();
         }
 
-        /// <summary>PE inválida — ambulancia no existe → lanza excepción.</summary>
         [Fact]
         public async Task GetRevisionPorAmbulanciaAsync_AmbulanciaNoExiste_LanzaExcepcion()
         {
@@ -233,11 +201,7 @@ namespace AmbuStock.Tests.Services
             await accion.Should().ThrowAsync<Exception>().WithMessage("*404*");
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // GetHistorialAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>Con revisiones → devuelve ordenado por fecha descendente.</summary>
+     
         [Fact]
         public async Task GetHistorialAsync_ConRevisiones_DevuelveOrdenadoPorFechaDesc()
         {
@@ -259,7 +223,6 @@ namespace AmbuStock.Tests.Services
             resultado.First().FechaRevision.Should().BeAfter(resultado.Last().FechaRevision);
         }
 
-        /// <summary>Ambulancia desaparecida → usa "N/A" en lugar de crashear.</summary>
         [Fact]
         public async Task GetHistorialAsync_AmbulanciaDesaparecida_UsaNA()
         {
@@ -279,11 +242,6 @@ namespace AmbuStock.Tests.Services
             resultado.First().Matricula.Should().Be("N/A");
         }
 
-        // ═══════════════════════════════════════════════════════════════════════════
-        // GetRevisionByIdAsync
-        // ═══════════════════════════════════════════════════════════════════════════
-
-        /// <summary>Revisión existe → devuelve detalle. Rama TRUE: revision != null.</summary>
         [Fact]
         public async Task GetRevisionByIdAsync_RevisionExiste_DevuelveDetalle()
         {
@@ -302,7 +260,6 @@ namespace AmbuStock.Tests.Services
             resultado.MaterialesRevisados.Should().Be(8);
         }
 
-        /// <summary>Revisión no existe → devuelve null. Rama FALSE: revision == null.</summary>
         [Fact]
         public async Task GetRevisionByIdAsync_RevisionNoExiste_DevuelveNull()
         {
